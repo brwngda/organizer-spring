@@ -1,6 +1,7 @@
 package com.gbarwinski.organizerspring.service;
 
 import com.gbarwinski.organizerspring.DTO.TaskDTO;
+import com.gbarwinski.organizerspring.exception.NoTaskFoundException;
 import com.gbarwinski.organizerspring.model.Project;
 import com.gbarwinski.organizerspring.model.Task;
 import com.gbarwinski.organizerspring.repository.TaskRepository;
@@ -23,7 +24,7 @@ public class TaskService {
     }
 
     public Task findTask(Long id) {
-        return taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Task with following id (%d) has not been found" + id));
+        return taskRepository.findById(id).orElseThrow(() -> new NoTaskFoundException(id));
     }
 
     private Task transformTaskDtoToTask(TaskDTO taskDTO, Task task) {
