@@ -18,8 +18,12 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final ProjectService projectService;
+    private final ProgressService progressService;
+    private final SprintService sprintService;
+
 
     public void saveTask(Task task) {
+        task.setProgress(progressService.findAllProgress().get(0).getName());
         taskRepository.save(task);
     }
 
@@ -69,5 +73,13 @@ public class TaskService {
         } else {
             return new ArrayList<Task>();
         }
+    }
+
+    public List<Task> getTasksBySprintId(Long id) {
+        return taskRepository.findAllBySprint(sprintService.findById(id));
+    }
+
+    public void deleteTask(Long id) {
+        taskRepository.deleteById(id);
     }
 }
