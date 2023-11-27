@@ -5,7 +5,6 @@ import com.gbarwinski.organizerspring.model.Task;
 import com.gbarwinski.organizerspring.service.TaskService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +36,12 @@ public class TaskController {
     @ModelAttribute
     public void AddAttributes(Model model, HttpServletRequest request) {
         model.addAttribute("newTask", new Task());
+    }
+
+    @GetMapping("/task/{taskId}/{progress}")
+    public void updateCardProgress(@PathVariable("taskId") Long taskId, @PathVariable("progress") String progress) {
+        Task task = taskService.findTask(taskId);
+        task.setProgress(progress);
+        taskService.saveTask(task);
     }
 }
