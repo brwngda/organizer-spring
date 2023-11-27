@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @ControllerAdvice
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class TaskController {
     private final TaskService taskService;
 
