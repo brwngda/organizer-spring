@@ -20,4 +20,8 @@ public class Progress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    public Progress(String name) {
+        this.name = name;
+    }
 }
