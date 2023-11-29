@@ -1,4 +1,4 @@
-package com.gbarwinski.organizerspring.authentication.controller.validator;
+package com.gbarwinski.organizerspring.authentication.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -7,15 +7,17 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({TYPE, FIELD, ANNOTATION_TYPE})
+@Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = PasswordMatchesValidator.class)
 @Documented
-public @interface ValidEmail {
-    String message() default "The email is incorrect";
+public @interface PasswordMatches {
+
+    String message() default "The passwords do not match";
 
     Class<?>[] groups() default {};
 

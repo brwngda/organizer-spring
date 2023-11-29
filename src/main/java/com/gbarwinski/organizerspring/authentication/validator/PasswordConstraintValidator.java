@@ -1,4 +1,4 @@
-package com.gbarwinski.organizerspring.authentication.controller.validator;
+package com.gbarwinski.organizerspring.authentication.validator;
 
 
 import com.google.common.base.Joiner;
