@@ -2,6 +2,7 @@ package com.gbarwinski.organizerspring.service;
 
 import com.gbarwinski.organizerspring.DTO.ProjectDTO;
 import com.gbarwinski.organizerspring.model.Project;
+import com.gbarwinski.organizerspring.model.User;
 import com.gbarwinski.organizerspring.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,16 @@ public class ProjectService {
     public void deleteProject(Long id) {
         Project project = findProjectById(id);
         projectRepository.delete(project);
+    }
+
+    public Project addInitialProject(User user) {
+        Project initialProject = Project.builder()
+                .name("Name of your project")
+                .description("Description of your project")
+                .avatar("icons/015.png")
+                .isStarred(false)
+                .build();
+        projectRepository.save(initialProject);
+        return initialProject;
     }
 }
