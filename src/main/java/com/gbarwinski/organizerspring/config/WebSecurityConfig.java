@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     AuthenticationSuccessHandler successHandler() {
-        return new CustomAuthenticationSuccessHandler(loggingUserService);
+        return new CustomAuthSuccessHandler(loggingUserService);
     }
 
     @Bean

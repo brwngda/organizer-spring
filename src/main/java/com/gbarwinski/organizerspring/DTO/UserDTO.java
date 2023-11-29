@@ -1,5 +1,7 @@
 package com.gbarwinski.organizerspring.DTO;
 
+import com.gbarwinski.organizerspring.authentication.validator.PasswordMatches;
+import com.gbarwinski.organizerspring.authentication.validator.ValidPassword;
 import com.gbarwinski.organizerspring.model.Roles;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@PasswordMatches
 public class UserDTO {
 
     @NotBlank(message = "The name cannot be empty")
@@ -26,7 +29,7 @@ public class UserDTO {
     @Size(max = 30, message = "The nick is too long")
     private String nick;
 
-
+    @ValidPassword(message = "The password does not meet the requirements")
     @NotNull(message = "The password cannot be empty")
     private String password;
 
