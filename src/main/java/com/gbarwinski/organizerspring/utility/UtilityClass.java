@@ -18,10 +18,9 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-@lombok.experimental.UtilityClass
 public class UtilityClass {
 
-    public User getLoggedInUser() {
+    public static User getLoggedInUser() {
         HttpSession session = Objects.requireNonNull(getCurrentHttpRequest()).getSession(false);
         if (session != null)
             return (User) session.getAttribute("appUser");
@@ -29,7 +28,7 @@ public class UtilityClass {
             return new User();
     }
 
-    public HttpServletRequest getCurrentHttpRequest() {
+    public static HttpServletRequest getCurrentHttpRequest() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes instanceof ServletRequestAttributes) {
             return ((ServletRequestAttributes) requestAttributes).getRequest();
@@ -37,7 +36,7 @@ public class UtilityClass {
         return null;
     }
 
-    public List<String> getListOfIconTitles() throws IOException {
+    public static List<String> getListOfIconTitles() throws IOException {
         List<String> result = new ArrayList<>();
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
@@ -49,16 +48,17 @@ public class UtilityClass {
         return result;
     }
 
-    public List<String> getListOfIconsTitlesWrittenManually() {
+    public static List<String> getListOfIconsTitlesWrittenManually() {
         ArrayList<String> strings = new ArrayList<>();
 
         for (int i = 1; i < 100; i++) {
             String tmp;
-            if (i > 0 && i < 10)
+            if (i < 10) {
                 tmp = "00" + i + ".png";
-            else
+            } else {
                 tmp = "0" + i + ".png";
-            strings.add(tmp);
+                strings.add(tmp);
+            }
         }
         return strings;
     }
