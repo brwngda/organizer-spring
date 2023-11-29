@@ -1,6 +1,7 @@
 package com.gbarwinski.organizerspring.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,9 +26,11 @@ public class User {
     private String password;
 
     @ManyToMany(mappedBy = "users")
+    @JsonIgnore
     private List<Project> projects;
 
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private Task task;
     private String href;
 

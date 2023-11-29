@@ -1,5 +1,6 @@
 package com.gbarwinski.organizerspring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class Sprint {
     private Long storyPointsGranted;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sprint")
+    @JsonIgnore
     private List<Task> tasks;
 }

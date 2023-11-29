@@ -2,8 +2,10 @@ package com.gbarwinski.organizerspring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -22,10 +24,12 @@ public class Project {
     private String admin;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    @JsonIgnore
     private List<Task> tasks;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<User> users;
     private String avatar;
-    private boolean isStarred=false;
+    private boolean isStarred = false;
 }
