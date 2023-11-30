@@ -31,6 +31,11 @@ public class ProjectController {
         return "fragments_projects/browserProject";
     }
 
+    @GetMapping("/project/{projectId}/{userId}")
+    public String addUserToProject(@PathVariable("projectId") Long projectId, @PathVariable("userId") Long userId) {
+        projectService.addUserToProject(projectId, userId);
+        return "Result: positive";
+    }
     @GetMapping("/createProject")
     public String createProject(Model model) {
         model.addAttribute("newProject", new ProjectDTO());
