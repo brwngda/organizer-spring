@@ -21,10 +21,28 @@ public class TaskService {
     private final ProgressService progressService;
     private final SprintService sprintService;
 
-
     public void saveTask(Task task) {
         task.setProgress(progressService.findAllProgress().get(0).getName());
         taskRepository.save(task);
+    }
+
+    public void createTaskUsingTaskDTO(TaskDTO taskDTO) {
+        Task task = new Task();
+        getTaskFromTaskDTO(taskDTO, task);
+        task.setProgress(progressService.findAllProgress().get(0).getName());
+        saveTask(task);
+    }
+
+    private Task getTaskFromTaskDTO(TaskDTO taskDTO, Task task) {
+        task.setProject(projectService.findProjectById(taskDTO.getProject().getId()));
+        task.setDescription(taskDTO.getDescription());
+        task.setName(taskDTO.getName());
+        task.setPriority(taskDTO.getPriority());
+        task.setTypeOfStory(taskDTO.getTypeOfStory());
+        task.setSprint(taskDTO.getSprint());
+        task.setStoryPoints(taskDTO.getStoryPoints());
+        task.setUser(taskDTO.getUser());
+        return task;
     }
 
     public Task findTask(Long id) {
@@ -79,6 +97,21 @@ public class TaskService {
         Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(id);
         return AllTasksByProjectName.orElse(new ArrayList<Task>());
 
+    }
+
+    public TaskDTO newTaskDtoWithAssignedProjectId(Long projectId) {
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setProject(projectService.findProjectById(projectId));
+        return taskDTO;
+    }
+
+    public Long getProjectIdFromTaskDTO(TaskDTO taskDTO) {
+        return taskDTO.getProject().getId();
+    }
+
+    public Long getProjectIdFromTask(Long id) {
+        Task task = findTask(id);
+        return task.getProject().getId();
     }
 
     public List<Task> getTasksBySprintId(Long id) {
