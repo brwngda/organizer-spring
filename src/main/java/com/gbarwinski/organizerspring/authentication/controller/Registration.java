@@ -3,6 +3,7 @@ package com.gbarwinski.organizerspring.authentication.controller;
 import com.gbarwinski.organizerspring.DTO.UserDTO;
 import com.gbarwinski.organizerspring.model.User;
 import com.gbarwinski.organizerspring.service.LoggingUserService;
+import com.gbarwinski.organizerspring.service.RabbitService;
 import com.gbarwinski.organizerspring.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.io.IOException;
 public class Registration {
     private final UserService userService;
     private final LoggingUserService loggingUserService;
+    private final RabbitService rabbitService;
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -52,6 +54,7 @@ public class Registration {
         }
         model.addAttribute("registrationSuccess", true);
         String userId = registered.getIdUser().toString();
+        rabbitService.createQueue(userId);
 
         return "login/loginPage";
     }

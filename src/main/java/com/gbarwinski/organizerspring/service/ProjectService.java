@@ -28,6 +28,11 @@ public class ProjectService {
         return project;
     }
 
+    public List<Project> findAllProjectForUser(Long userId) {
+        User activeUser = userService.findUserById(userId);
+        return filterProjectsForUser(activeUser);
+    }
+
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }

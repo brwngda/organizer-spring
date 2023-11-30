@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @ControllerAdvice
 @Data
 @RequiredArgsConstructor
@@ -22,12 +24,11 @@ public class DashboardController {
     private final TaskService taskService;
     private final UserService userService;
     private final SprintService sprintService;
+    private final MessageService messageService;
 
     @GetMapping("/dashboard")
     public String showDashBoard(@RequestParam("id") Long projectId, Model model, HttpServletRequest request) {
-
         HttpSession session = request.getSession(false);
-
         if (session.getAttribute("appUser") == null) return "redirect:/logout";
         Project actualProject = projectService.findProjectById(projectId);
         model.addAttribute("actualDashBoard", actualProject);
@@ -35,8 +36,12 @@ public class DashboardController {
         model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
         model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
         session.setAttribute("actualDashBoard", actualProject);
-
         return "fragments_dashboard/dashBoard";
+    }
+
+    @GetMapping("/dashboard/allUsers")
+    public List<User> getAllUsers() {
+        return userService.getAllUsersApartActiveUser();
     }
 
     @ModelAttribute
@@ -47,7 +52,6 @@ public class DashboardController {
         if (session != null)
             appUser = (User) session.getAttribute("appUser");
         actualProject = (Project) session.getAttribute("actualDashBoard");
-
         if (appUser != null) {
             model.addAttribute("ActualUser", appUser);
             model.addAttribute("ActualUserInitialLetters", userService.getInitialLetters(appUser));
@@ -58,9 +62,7 @@ public class DashboardController {
             model.addAttribute("sprint", new Sprint());
             model.addAttribute("taskList", taskService.getTasksByProject(actualProject));
             model.addAttribute("userList", userService.getAllUsersApartActiveUser());
-
-
+            model.addAttribute("logsAboutProjects", messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
         }
-
     }
 }
