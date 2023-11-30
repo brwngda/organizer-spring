@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,4 +33,12 @@ public class Project {
     private List<User> users;
     private String avatar;
     private boolean isStarred = false;
+
+    public Project(String name, String description,String avatar,List<User> users,String admin) {
+        this.name=name;
+        this.description=description;
+        this.avatar= avatar;
+        this.users=users;
+        this.admin=admin;
+    }
 }

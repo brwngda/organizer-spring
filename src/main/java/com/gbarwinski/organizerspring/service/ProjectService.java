@@ -8,6 +8,7 @@ import com.gbarwinski.organizerspring.utility.UtilityClass;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -103,6 +104,27 @@ public class ProjectService {
                 projectRepository.save(project);
             }
         }
+    }
+
+    public void createProject(ProjectDTO projectDTO) {
+        ArrayList<User> users = new ArrayList<>();
+        users.add(UtilityClass.getLoggedInUser());
+        Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users, UtilityClass.getLoggedInUser().getEmail());
+        save(project);
+    }
+
+    public void updateProject(ProjectDTO projectDTO) {
+        Long projectId = projectDTO.getId();
+        Project project = findProjectById(projectId);
+        Project updatedProject = transformProjectDtoToProject(project, projectDTO);
+        save(updatedProject);
+    }
+
+    public List<User> getProjectAdminNameAndSurname() {
+        return getAllProjectsForUser().stream()
+                .map(admin -> (userService.findUserByEmail(admin.getAdmin())))
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public void save(Project project) {
