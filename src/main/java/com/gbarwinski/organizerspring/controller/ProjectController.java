@@ -1,6 +1,7 @@
 package com.gbarwinski.organizerspring.controller;
 
 import com.gbarwinski.organizerspring.DTO.ProjectDTO;
+import com.gbarwinski.organizerspring.model.Project;
 import com.gbarwinski.organizerspring.model.User;
 import com.gbarwinski.organizerspring.service.MessageService;
 import com.gbarwinski.organizerspring.service.ProjectService;
@@ -65,6 +66,15 @@ public class ProjectController {
         }
         projectService.updateProject(projectDTO);
         return "redirect:/projects";
+    }
+
+    @GetMapping("/star/{projectId}")
+    public ProjectDTO updateProject(@PathVariable("projectId")  Long projectId){
+        Project project = projectService.findProjectById(projectId);
+        boolean updatedStarred = !project.isStarred();
+        project.setStarred(updatedStarred);
+        projectService.save(project);
+        return projectService.findProjectAndTransferToDTO(projectId);
     }
 
     @GetMapping("/deleteProject")
