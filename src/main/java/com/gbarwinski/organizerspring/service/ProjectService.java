@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final UserService userService;
 
     public Project findProjectById(Long projectId) {
         Optional<Project> optionalProject = projectRepository.findById(projectId);
@@ -83,5 +84,23 @@ public class ProjectService {
                 .filter(project -> project.getUsers().stream().
                         anyMatch(user -> user.getIdUser().equals(activeUser.getIdUser())))
                 .collect(Collectors.toList());
+    }
+
+    public void addUserToProject(Long idProject, Long idUser) {
+        Optional<Project> ProjectById = projectRepository.findById(idProject);
+        User userByEmail = userService.findUserById(idUser);
+        if (ProjectById.isPresent()) {
+            Project project = ProjectById.get();
+            List<User> users = project.getUsers();
+            if (!users.contains(userByEmail)) {
+                users.add(userByEmail);
+                project.setUsers(users);
+                projectRepository.save(project);
+            }
+        }
+    }
+
+    public void save(Project project) {
+        projectRepository.save(project);
     }
 }
