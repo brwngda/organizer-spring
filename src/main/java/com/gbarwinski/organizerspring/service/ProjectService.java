@@ -4,11 +4,13 @@ import com.gbarwinski.organizerspring.DTO.ProjectDTO;
 import com.gbarwinski.organizerspring.model.Project;
 import com.gbarwinski.organizerspring.model.User;
 import com.gbarwinski.organizerspring.repository.ProjectRepository;
+import com.gbarwinski.organizerspring.utility.UtilityClass;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -68,5 +70,18 @@ public class ProjectService {
                 .build();
         projectRepository.save(initialProject);
         return initialProject;
+    }
+
+    public List<Project> getAllProjectsForUser() {
+        User activeUser = UtilityClass.getLoggedInUser();
+        return filterProjectsForUser(activeUser);
+    }
+
+    public List<Project> filterProjectsForUser(User activeUser) {
+        List<Project> allProjects = projectRepository.findAll();
+        return allProjects.stream()
+                .filter(project -> project.getUsers().stream().
+                        anyMatch(user -> user.getIdUser().equals(activeUser.getIdUser())))
+                .collect(Collectors.toList());
     }
 }

@@ -66,13 +66,19 @@ public class TaskService {
         return taskDTO;
     }
 
-    public List<Task> getTasksByProjectId(Project project) {
+    public List<Task> getTasksByProject(Project project) {
         if (project != null) {
             Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(project.getId());
             return AllTasksByProjectName.orElse(new ArrayList<Task>());
         } else {
             return new ArrayList<Task>();
         }
+    }
+
+    public List<Task> getTasksByProject(Long id) {
+        Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(id);
+        return AllTasksByProjectName.orElse(new ArrayList<Task>());
+
     }
 
     public List<Task> getTasksBySprintId(Long id) {
