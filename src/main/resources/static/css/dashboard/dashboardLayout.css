@@ -1,0 +1,75 @@
+body, html {
+    min-height: 100vh;
+    height: auto;
+    width: 100%;
+    background-color: #FFFFFF;
+    color: black;
+    margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
+}
+
+.container-fluid {
+    width: 100%;
+    height: auto;
+    padding: 0 !important;
+    margin: 0 auto;
+}
+
+#tools {
+    position: relative;
+    min-width: 50px;
+    height: inherit;
+    min-height: 100vh;
+    align-content: center!important;
+    width: 3%;
+    margin: 0 !important;
+    float: left;
+}
+
+.containerScrollable {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: block;
+}
+
+#project_menu {
+    min-width: 250px;
+    position: relative;
+    height: inherit;
+    min-height: 100vh;
+    width: 14%;
+    background-color: #F6F6F6;
+    margin: 0 !important;
+    float: left;
+}
+
+#main {
+    position: relative;
+    min-height: 100vh;
+    height: inherit;
+    width: calc(100% - 300px);
+    max-width: 80%;
+    margin: 0 !important;
+    float: left;
+    padding-left: 1.8% !important;
+}
+
+@media screen and (max-width: 1000px){
+        #main {
+            width: calc(100% - 50px);
+            max-width: 95%;
+            min-height: calc(100vh - 78px);
+            height: calc(100vh - 78px);
+        }
+        #project_menu{
+            position: relative;
+            top: 0;
+            min-width: 50%;
+            width: calc(100% - 50px);
+            min-height: 83px;
+            height: 83px;
+            margin-bottom: 5px;
+        }
+
+}

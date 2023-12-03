@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/projectsBrowser/projectMainContent.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/projectsBrowser/projectLayout.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar/navbar.css}"/>
+
+    <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div id="userId" th:name="${ActualUser.idUser}"></div>
+
+    <div id="navbar">
+        <div th:replace="fragment_navbar/navbar :: navbar(${ActualUser.email},${logsAboutProjects})">...</div>
+    </div>
+
+        <div th:replace="fragments_projects/panelWithProjects::panel(${projectList},${ActualUser})"></div>
+
+        <section layout:fragment="editProject"></section>
+
+        <section layout:fragment="addProject"></section>
+
+
+</div>
+
+</body>
+
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="webjars/sockjs-client/1.1.1/sockjs.min.js"></script>
+<script src="webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+<script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
+<script src="/js/navbar/navbar.js"></script>
+<script src="/js/navbar/navbarNotification.js"></script>
+
+<section layout:fragment="scripts">
+
+</section>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration form - Organizer</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login_and_registry/registration.css}"/>
+
+</head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<body>
+<form th:action="@{/register}" th:object="${newUser}" method="post">
+    <div class="container-fluid containerForInputs">
+        <h4 class="text-light text-center">Rejestracja użytkownika</h4>
+        <br>
+        <div class="form-group formContainer">
+            <div class="row">
+                <div class="col-3">
+                    <label for="name_input">Imię</label>
+                </div>
+                <div class=" col-6">
+                    <input type="text" class="form-control " id="name_input" aria-describedby="nameHelp"
+                           placeholder="Wprowadź imię" th:field="*{firstName}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-3 col-9 text-wrap">
+
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                  class="login-info-message">Name Error</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group formContainer">
+            <div class="row">
+                <div class="col-3">
+                    <label for="surname_input">Nazwisko</label>
+                </div>
+                <div class=" col-6">
+                    <input type="text" class="form-control " id="surname_input" aria-describedby="surnameHelp"
+                           placeholder="Wprowadź nazwisko" th:field="*{secondName}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-3 col-9 text-wrap">
+                        <span th:if="${#fields.hasErrors('secondName')}" th:errors="*{secondName}"
+                              class="login-info-message">Surname Error</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group formContainer">
+            <div class="row">
+                <div class="col-3">
+                    <label for="nick_input">Nick</label>
+                </div>
+                <div class=" col-6">
+                    <input type="text" class="form-control " id="nick_input" aria-describedby="nick_inputHelp"
+                           placeholder="Wprowadź nick" th:field="*{nick}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-3 col-9 text-wrap">
+                <span th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"
+                      class="login-info-message">Nick Error</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group formContainer">
+            <div class="row">
+                <div class="col-3">
+                    <label for="exampleInputEmail1">Adres email</label>
+                </div>
+                <div class=" col-6">
+                    <input type="email" class="form-control " id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
+                           placeholder="Wprowadź email" th:field="*{email}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-3 col-9 text-wrap">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                  class="login-info-message">Email Error</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group formContainer">
+            <div class="row">
+                <div class="col-3">
+                    <label  for="exampleInputPassword1">Hasło</label>
+                </div>
+                <div class=" col-6">
+                    <input type="password" class="form-control " id="exampleInputPassword1"
+                           placeholder="Wprowadź hasło"
+                           aria-describedby="passwordHelp"
+                           th:field="*{password}">
+                </div>
+            </div>
+            <div class="row text-wrap ">
+                <small id="passwordHelp" class="form-text offset-3 col-6 text-light ">
+                    Hasło powinno składać co najmniej z 8 znaków, w tym z wielkiej litery, cyfry i znaku
+                    specjalnego.</small>
+                <div class="offset-3 col-9 ">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                      class="login-info-message">Password Error</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group formContainer">
+            <div class="row">
+                <div class="col-3">
+                    <label for="matchingPassword">Powtórz hasło </label>
+                </div>
+                <div class=" col-6">
+                    <input type="password" class="form-control " id="matchingPassword"
+                           placeholder="Wprowadź powtórnie hasło"
+                           th:field="*{matchingPassword}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-3 col-9 text-wrap">
+            <span th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}"
+                  class="login-info-message">Password Error</span>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group formContainer">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="roles">Rola </label>
+                    </div>
+                    <div class=" col-3">
+                        <select id="roles" th:field="*{roles}">
+                            <option th:each="role:${T(com.khryniewicki.organizer.registration_login_logout.DTO.Roles).values()}"
+                                    th:value="${role}" th:text="${role}"></option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="offset-3 col-9 text-wrap">
+
+                        <span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"
+                              class="login-info-message">Password Error</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <br>
+                <a th:href="'/login'" class="btn btn-secondary float-right mx-1">Powrót do strony logowania</a>
+
+                <button type="submit" class="btn btn-primary float-right">Rejestruj</button>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

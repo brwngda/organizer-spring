@@ -1,0 +1,71 @@
+body {
+  padding-top: 56px;
+}
+
+.mainImage {
+  height: 50vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.aboutOrganizer{
+  font-size: 108%;
+}
+.secondaryImage {
+  height: 34vh;
+  min-height: 180px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+.item1{
+  background-image: url("/img/railway.jpg");
+  background-size: cover;
+}
+
+.item{
+  background-size: cover;
+}
+
+.iconRocket{
+  color: darkviolet;
+}
+
+.iconShield{
+  color: blue;
+}
+.iconSquare{
+  color: orangered;
+}
+.wordCloud{
+  width: 100%;
+  height: 100%;
+}
+.container-cards{
+  overflow: auto;
+}
+
+@media screen and (max-width: 1000px) {
+  .container-innerCards {
+    width: 930px;
+    height: auto;
+  }
+
+  .container-cards {
+    display: inline-block !important;
+    height: 400px;
+    overflow-x: visible !important;
+    overflow-y: hidden;
+    width: calc(100% - 20px);
+    white-space: normal;
+  }
+}

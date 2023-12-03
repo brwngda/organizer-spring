@@ -49,9 +49,10 @@ public class DashboardController {
         HttpSession session = request.getSession(false);
         User appUser = null;
         Project actualProject = null;
-        if (session != null)
+        if (session != null) {
             appUser = (User) session.getAttribute("appUser");
-        actualProject = (Project) session.getAttribute("actualDashBoard");
+            actualProject = (Project) session.getAttribute("actualDashBoard");
+        }
         if (appUser != null) {
             model.addAttribute("ActualUser", appUser);
             model.addAttribute("ActualUserInitialLetters", userService.getInitialLetters(appUser));

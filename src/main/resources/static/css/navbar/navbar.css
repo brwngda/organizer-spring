@@ -1,0 +1,100 @@
+.imgIcon {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+
+.shadowBox {
+    background: gainsboro;
+
+    -moz-box-shadow: inset 0 -5px 5px -5px #F4F4F4;
+    -webkit-box-shadow: inset 0 -15px 5px -5px #F4F4F4;
+    box-shadow: inset 0 -5px 5px -5px #F4F4F4;
+}
+
+.shadowBox .icon {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .item {
+        display: none;
+    }
+
+    .shadowBox a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .shadowBox.responsive {
+        position: relative;
+    }
+
+    .shadowBox.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .shadowBox.responsive .item {
+        width: 100% !important;
+        float: left !important;
+        display: block;
+        text-align: left !important;
+    }
+
+    .shadowBox.responsive .permamentButtons {
+
+        display: inline;
+
+    }
+
+    .dropdown-menu-right {
+        left:0!important;
+        right: auto;
+    }
+
+    .navbar-nav .dropdown-men{
+        position: absolute!important;
+    }
+}
+
+@media (max-width: 700px){
+    .navbar-nav {
+        flex-direction: column!important;
+    }
+}
+
+
+
+@media screen and (max-width: 700px) {
+    .container-innerNotification {
+        width: 1000px;
+        height: auto;
+        display: block;
+        float: left;
+
+    }
+
+    .container-Notification {
+        overflow-x: visible !important;
+        overflow-y: hidden;
+        white-space: normal;
+    }
+    #dropdown_arrow{
+        float: left;
+    }
+
+    #NotificationButton{
+        padding: 0!important;
+    }
+    #buttonWithNotifations{
+        padding-left: 0!important;
+    }
+}
+
+#NotificationButton{
+    margin-top: 3px;
+}
+

@@ -1,0 +1,180 @@
+#projectIMG {
+    /*background-image: url("/img/steam.png");*/
+    background-size: cover;
+    height: 40px !important;
+    width: 40px !important;
+    position: relative;
+
+    float: left;
+}
+
+#projectTitle {
+    position: relative;
+    text-align: left !important;
+}
+
+#projectDescription {
+    position: relative;
+    float: left;
+}
+
+.card {
+    height: 126px;
+}
+
+#buttonWithProjects {
+    min-width: 150px;
+    width: 150px !important;
+    padding-right: 0 !important;
+}
+
+.btn {
+    text-align: left !important;
+}
+
+#dropdown_arrow {
+    float: right;
+    text-align: center
+}
+
+#project_browser {
+    float: left;
+
+}
+
+.projects_container {
+    padding: 3px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.projects_container2 {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: block;
+}
+
+@media screen and (max-width: 800px) {
+    .projects_container2 {
+        overflow-x: visible;
+    }
+}
+
+#viewThisResult {
+    text-align: right;
+}
+
+#resultContainer #viewThisResult {
+    visibility: hidden;
+}
+
+#resultContainer:hover #viewThisResult {
+    visibility: visible;
+
+}
+
+.icon_star {
+    text-align: right !important;
+    display: inline-block !important;
+    background: white !important;
+
+}
+
+.btn#viewThisResult {
+    text-align: right !important;
+
+}
+
+.table-compacted {
+    font-size: 15px;
+}
+
+tr.noBorder td {
+    border: 0;
+}
+
+tr.noBorder:hover {
+    background: #F2F2F2;
+    border: 0;
+}
+
+#table_project_name {
+    color: #005cbf;
+
+}
+
+#avatarIMG {
+    /*background-image: url("/img/steam.png");*/
+    background-size: cover;
+    height: 30px !important;
+    width: 30px !important;
+    position: relative;
+    float: left;
+    margin-right: 2px;
+    margin-top: -4px !important;
+}
+
+.avatarIMGdrop {
+    width: 60% !important;
+}
+
+#cogs {
+    vertical-align: middle !important;
+    float: right !important;
+    margin-right: 10px;
+}
+
+.btn.disabled {
+    float: right !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+select.icon-menu option {
+    background-repeat: no-repeat;
+    background-position: bottom left;
+}
+
+#avatar_box {
+    float: left !important;
+}
+
+.btn_avatar {
+    padding: 2px !important;
+}
+
+.avatar_edit {
+    width: 40px;
+    height: 40px;
+}
+
+.img_edit_menu {
+    float: left
+}
+
+#btndisplaynone {
+    display: none;
+}
+.star{
+    color: yellow;
+}
+.ButtonWithInitials {
+    border-radius: 50%;
+    height: 35px !important;
+    width: 35px !important;
+    text-align: center !important;
+    font-size: 100%;
+    vertical-align: middle !important;
+    overflow: hidden;
+    padding: 6px 2px 4px 2px;
+}
+
+.required, .errorRED {
+    color: red;
+}
+
+.columnWithIcon{
+    min-width: 200px!important;
+}

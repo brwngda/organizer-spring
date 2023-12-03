@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+
+<body>
+
+<div th:fragment="projectbar(projectList,actualDashBoard)">
+    <div class="dropdown px-2 py-2">
+        <button id="buttonWithProjects " class="btn btn-light dropdown-toggle dropdown-toggle-split w-100 px-0 "
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+
+            <img th:src="'img/'+${actualDashBoard.avatar}" id="projectIMG" class="float-left mx-2">
+
+            <b>
+                <p th:id="projectTitle" th:text="${actualDashBoard.name} " class="text-left my-0 mx-2"></p>
+            </b>
+
+            <div>
+                <h7 th:id="projectDescription" th:text="${actualDashBoard.description}"
+                    class="text-left my-0 mx-1"></h7>
+            </div>
+        </button>
+        <div class="dropdown-menu w-100" id="dropdown_arrow" aria-labelledby="buttonWithProjects">
+            <div th:each="project:${projectList}">
+                <a class="btn dropdown-item" th:href="'/dashboard?id='+${project.id}" th:text="${project.name}" ></a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" > + Utwórz projekt</a>
+        </div>
+    </div>
+
+</div>
+
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+
+</body>
+</html>

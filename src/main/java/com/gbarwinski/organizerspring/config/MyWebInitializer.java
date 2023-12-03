@@ -13,7 +13,7 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebSecurityConfig.class};
+        return new Class[]{SecurityConfig.class};
     }
 
     @Override

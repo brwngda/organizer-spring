@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>DashBoard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dashboard/dashboardLayout.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dashboard/dashboardMainContent.css}"/>
+
+<body>
+
+
+<div th:fragment="dashBoard(taskList,progress_steps,actualDashBoard,ActualUser,ActualUserInitialLetters,userList)">
+
+    <div id="tools" class="bg-primary ">
+        <a th:href="@{/createTask(id=${actualDashBoard.id})}" id="addCard"
+           class="btn btn-primary btn-circle mx-2">
+            <i class="fas fa-plus-square " data-toggle="modal"
+               data-target="#myModal" th:title="Utwórz"></i></a>
+
+    </div>
+
+    <div id="project_menu">
+        <div class="dropdown dropdownButton px-2 py-2 col-lg-12 col-md-12 col-sm-12 col-12">
+            <button id="buttonWithProjects "
+                    class="btn btn-light dropdown-toggle dropdown-toggle-split  px-0 btn-block "
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+
+                <img th:src="'img/'+${actualDashBoard.avatar}" id="projectIMG" class="float-left mx-2">
+
+                <b>
+                    <p th:id="projectTitle" th:text="${actualDashBoard.name} " class="text-left my-0 mx-2"></p>
+                </b>
+
+                <div>
+                    <h7 th:id="projectDescription" th:text="${actualDashBoard.description}"
+                        class="text-left my-0 mx-1"></h7>
+                </div>
+            </button>
+            <div class="dropdown-menu w-100 float-right" id="dropdown_arrow" aria-labelledby="buttonWithProjects">
+                <div th:each="project:${projectList}">
+                    <a class="btn dropdown-item" th:href="'/dashboard?id='+${project.id}" th:text="${project.name}"></a>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/createProject"> + Utwórz projekt</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="main">
+        <div th:switch="${taskList}" class="container-fluid main">
+            <h2 th:case="null">Brak zadań</h2>
+            <div th:case="*">
+                <div class="container-fluid main" id="dashBoard">
+                    <br>
+                    <div id="dashBoardRef">
+                        <h5>
+                            <a href="/projects" th:text="Projekty"></a>
+                            <a th:text="'/'"></a>
+                            <a th:href="'/dashboard?id='+${actualDashBoard.id}"
+                               th:text="${actualDashBoard.name}"></a>
+                            <a th:text="'/'"></a>
+                        </h5>
+
+                    </div>
+
+                    <div><h4>Tablica Kanban</h4></div>
+                    <br>
+                    <div class="form-group ">
+                        <div class="row my-2 mx-1">
+                            <div class="formAutoControl">
+                                <form autocomplete="off" action="/action_page.php">
+                                    <div class="autocomplete d-inline ">
+                                        <input id="myInput"
+                                               class="form-control col-lg-8 col-md-8 col-sm-8 col-8 d-inline"
+                                               type="text"
+                                               name="myUsers"
+                                               placeholder="Dodaj użytkownika ">
+
+                                        <button id="submitUser" class="btn btn-primary d-inline " type="button"> Dodaj
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col d-inline float-left">
+                                <div class="btn btn-danger mx-n1 ButtonWithInitials "
+                                     th:text="${ActualUserInitialLetters}" data-toggle="tooltip"
+                                     th:title="${ActualUser.name+' '+ActualUser.surname}">
+                                </div>
+
+                                <div th:each="user:${usersAssignedToProjectApartActiveUser}"
+                                     class="btn btn-light  mx-n1 ButtonWithInitials "
+                                     th:text="${user.name.substring(0,1)+user.surname.substring(0,1)}"
+                                     data-toggle="tooltip"
+                                     th:title="${user.name+' '+user.surname}">
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="container-fluid container-dashboard scroll-bar">
+                        <div class="container-fluid container-innerDashboard">
+                            <div class="tablePROGRESS" th:each="step:${progress_steps}" draggable="false">
+                                <div class="d-inline table-responsive">
+
+                                    <div class="thead-light" th:text="${step.name}">
+                                    </div>
+                                    <div th:id="${'container_'+step.name}" class="cardBox">
+                                        <div th:each="task:${taskList}">
+                                            <div th:if="${task.progress==step.name}">
+
+                                                <div th:id="${task.progress+'_'+ task.idTask}" class="" draggable="true"
+                                                     ondragstart="drag(event)"
+                                                     ondragend="hideAll()"
+                                                     th:classappend="${
+                                                                     (task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).LOW ? 'card  bg-light': '')
+                                                                     +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).MEDIUM ? 'card text-white bg-primary': '')
+                                                                     +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).HIGH  ? 'card text-white bg-warning': '')
+                                                                     +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).URGENT  ? 'card text-white bg-danger': '')} ">
+
+                                                    <div class="card-body ">
+                                                        <h7 class="card-title" th:text="${task.name}"></h7>
+                                                        <div class="card-text"></div>
+                                                        <div class="spacer"></div>
+                                                        <div id="icons">
+                                                            <div class=""
+                                                                 th:classappend="${
+                                                                                (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'badge badge-success': '' )
+                                                                                +(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'badge badge-danger': '' )}">
+
+                                                                <i class="" data-toggle="tooltip"
+                                                                   th:title="${task.typeOfStory.toString().toLowerCase()}"
+                                                                   th:classappend="${(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'far fa-bookmark': '' )+
+                                                                                 (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'fas fa-bug': '' )}"></i>
+                                                            </div>
+
+                                                            <div class="badge badge-light  ">
+                                                                <i class="fas fa-arrow-up" data-toggle="tooltip"
+                                                                   th:title="${task.priority}">
+                                                                </i>
+                                                            </div>
+
+
+                                                            <a th:href="@{/edittask(id=${task.idTask})}"
+                                                               class="badge badge-secondary clsmodal "
+                                                               draggable="false">
+                                                                <i class="fas fa-cog" data-toggle="tooltip"
+                                                                   th:title="edit"></i>
+                                                            </a>
+                                                            <div th:switch="${task.user}" class="d-inline  userBox">
+                                                                <div th:case="null"></div>
+                                                                <div th:case="*">
+                                                                    <div class="btn btn-danger  ButtonWithInitialsIcon"
+                                                                         th:text="${task.user.name.substring(0,1)+task.user.surname.substring(0,1)} "
+                                                                         data-toggle="tooltip"
+                                                                         th:title="${task.user.name}+' '+${task.user.surname}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="btn btn-info float-right ButtonWithInitialsIcon mx-1"
+                                                                 th:text="${task.idTask}" data-toggle="tooltip"
+                                                                 th:title="id"></div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:id="${'empty_'+step.name}" th:class="empty_card" ondrop="drop(event)"
+                                         ondragover="allowDrop(event)">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

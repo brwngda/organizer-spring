@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>DashBoard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<body>
+
+
+<div th:fragment="navbar(ActualUserEmail,logsAboutProjects)">
+    <nav id="navbarMain"
+         class="navbar navbar-expand-sm navbar navbar-dark bg-dark justify-content-between shadowBox unresponsive">
+        <a class="navbar-brand mx-0 permamentButtons">
+            <img src="/img/scheduleIcon3.png" class="imgIcon" width="30" height="30" alt="">
+        </a>
+        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">Organizer</a>
+
+        <a class="nav-item nav-link disabled mr-sm-2 text-secondary  " id="navbarActiveUserEmail"
+           th:text="${ActualUserEmail}"></a>
+
+        <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
+            <li class="nav-item item">
+                <a class="nav-item nav-link active " href="/home">Główna <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item item">
+                <a class="nav-item nav-link active " href="/projects">Projekty</a>
+            </li>
+
+        </ul>
+        <ul class="navbar-nav ">
+            <li class="nav-item item">
+                <div id="NotificationButton" class="dropdown col-lg-1 col-md-2 col-sm-3 unresponsive">
+                    <button class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split "
+                            data-toggle="dropdown" id="buttonWithNotifations"
+                            aria-haspopup="true" aria-expanded="false" title="Nowe informacje o projektach"> Komunikaty
+                        <span class="badge badge-light " id="badgeInfo"
+                              th:text="'0'"></span>
+
+                    </button>
+                    <div class="container-fluid container-Notification scroll-bar">
+                        <div class="container-fluid container-innerNotification">
+                            <div class="dropdown-menu  dropdown-menu-right text-left" id="dropdown_arrow"
+                                 aria-labelledby="buttonWithNotifations">
+                                <div id="newMessages" >
+
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div id="oldMessages">
+                                    <div th:each="log:${logsAboutProjects}">
+                                        <a class="btn dropdown-item w-100 dropdown-item-Notifications"
+                                           th:text="${log.message}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li id="logoutButton" class="nav-item item unresponsive">
+                <a class="nav-item nav-link  active " th:href="'/logout '" th:text="'Wyloguj' "></a>
+            </li>
+
+            <li>
+                <a href="javascript:void(0);" class="icon btn bg-dark text-light" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Projects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/projectsBrowser/projectMainContent.css}"/>
+    <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
+
+<body>
+<div th:fragment="panel(projectList,ActualUser)">
+    <div class="container-fluid px-3">
+        <br>
+        <div class="row">
+            <div class="col-2">
+                <h4 class="px-3">Projekty</h4>
+            </div>
+            <div class="offset-lg-7 col-lg-3 offset-md-7 col-md-3 offset-sm-6 col-sm-4  offset-4 col-6 float-right">
+                <a th:href="@{/createProject}" id="addProject" class="btn btn-primary float-right mx-3"
+                   data-toggle="tooltip"
+                   title="Utwórz">Utwórz projekt
+                </a>
+            </div>
+        </div>
+        <br>
+        <h7 class="px-3">Ostatnie</h7>
+    </div>
+    <div class="container-fluid my-2" id="project_browser">
+
+        <div class="scroll-bar projects_container">
+
+            <div th:each="project:${projectList}" class="d-inline-block mx-2">
+                <div class="card mx-1" style="width: 18rem;display: inline-block">
+                    <div >
+                        <div id="resultContainer">
+                            <div class="btn w-100 " id="viewThisResult">
+                                <i  th:title="*{'star:'+project.id}" th:name="*{(project.id)}" th:class="'iconStar icon_star '" th:classappend="*{project.starred}?'fas fa-star star':'far fa-star'"></i>                            </div>
+                        </div>
+                        <a id="buttonWithProjects " th:href="@{/dashboard(id=${project.id})}"
+                                class="btn btn-light px-0 w-100">
+
+                            <img th:src="'img/'+${project.avatar}" id="projectIMG" class="float-left mx-2">
+
+                            <b>
+                                <h7 id="projectTitle" th:text="${project.name} " class="my-0 mx-1"></h7>
+                            </b>
+
+                            <div>
+                                <h7 th:id="projectDescription" th:text="${project.description}"
+                                    class="text-left my-0 mx-1"></h7>
+                            </div>
+                        </a>
+                    </div>
+                    <a class="w-100" id="bottom_bar-card">
+                        <div class="mx-3 float-right" th:text="'Tabela '+${project.id} " style="text-align: left"></div>
+                    </a>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <div class="scroll-bar projects_container2 ">
+
+            <table class="table table-compacted ">
+                <thead>
+                <tr>
+                    <th scope="col"><i class="fas fa-star" id="icon_star_table"></i></th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Klucz</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Kierownik</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="noBorder" th:each="project:${projectList}">
+                    <td><i th:name="*{(project.id)}" th:title="*{'star:'+project.id}" th:class="'iconStar'" th:classappend="*{project.starred}?'fas fa-star star':'far fa-star'" ></i></td>
+                    <td class="align-middle">
+                        <div class="columnWithIcon">
+
+                            <img th:src="'img/'+${project.avatar}" id="avatarIMG">
+                            <a th:href="@{'/dashboard'(id=${project.id})}" id="table_project_name"
+                               th:text="${project.name}"></a>
+                        </div>
+                    </td>
+                    <td th:text="${project.id}"></td>
+                    <td th:text="'Klasyczne oprogramowanie'"></td>
+                    <td>
+                        <div class="columnWithIcon">
+                            <div th:each="adminNameAndSurname:${allAdminsInitialsList}"
+                                 th:id="${adminNameAndSurname.email==project.admin}?'goodbutton':'btndisplaynone'"
+                                 th:classappend="${adminNameAndSurname.email==ActualUser.email}? 'btn mx-1 ButtonWithInitials btn-danger ' : 'btn mx-1 ButtonWithInitials btn-secondary '"
+                                 th:text="${adminNameAndSurname.email==project.admin} ? ${adminNameAndSurname.name.substring(0,1)+adminNameAndSurname.surname.substring(0,1)}:'' "
+                                 data-toggle="tooltip"
+                                 th:title="${adminNameAndSurname.email==project.admin} ? ${adminNameAndSurname.name+' '+adminNameAndSurname.surname} :''">
+
+
+                            </div>
+
+                            <a th:text="${project.admin}">
+                            </a>
+
+                            <a th:href="@{/editproject(id=${project.id})}"
+                               th:classappend="${ActualUser.email==project.admin} ? '':'btn disabled '"><i
+                                    class="fas fa-cogs icon " id="cogs" data-toggle="tooltip"
+                                    th:title="Edytuj">
+                            </i></a>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+#projectIMG{
+    /*background-image: url("/img/steam.png");*/
+    background-size: cover;
+    height: 40px!important;
+    width: 40px!important;
+    position: relative;
+
+    float: left;
+}
+#ProjectTitle{
+    position: relative;
+}
+#projectDescription{
+    position: relative;
+    float: left;
+    
+}
+
+#buttonWithProjects{
+    text-align: left;
+    width: calc(100% - 5px) !important;
+    padding-right: 0!important;
+    word-break: break-word;
+}
+
+/*#dropdown_arrow{float: right;text-align: center}*/
+
+.dropdownButton .dropdown-toggle::after{
+    float: right;
+}

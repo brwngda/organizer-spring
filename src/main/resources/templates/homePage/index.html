@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Home Page - Organizer</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+
+    <link th:href="@{/css/homePage/homePage.css}" rel="stylesheet">
+    <link th:href="@{/css/homePage/homePageModal.css}" rel="stylesheet">
+    <link th:href="@{/css/navbar/navbar.css}" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<div id="navbar" class="fixed-top">
+    <div th:replace="fragment_navbar/navbarHomePage :: navbar(${ActualUser.email})">...</div>
+</div>
+
+<header>
+
+    <div id="carouselExampleIndicators" class="" data-ride="carousel">
+
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active mainImage " style="background-image: url('img/railway.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<br>
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h2><strong>Witaj w aplikacji organizer</strong></h2>
+            <br>
+            <div class="aboutOrganizer">
+                <p>Organizer to aplikacja webowa do zarządzania projektami, która jest wzorowana na oprogramowaniu Jira.
+                    Organizer umożliwia m.in : </p>
+                <ul>
+                    <li> Dodawanie, modyfikację oraz zarządzanie projektami</li>
+                    <li> Prowadzenie projektu samodzielnie lub w grupie</li>
+                    <li> Tworzenie nowych zadań i przydzielanie ich innym użytkownikom</li>
+                    <li> Edytowanie zadań</li>
+                    <li> Śledzenie postępów</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div id="carouselExampleIndicators1" class="carousel carousel1 slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active secondaryImage">
+                        <img class="d-block w-100 itemIMG1" src="/img/HomePage/NowyProjekt.png" alt="First slide"
+                             onclick="openModal();currentSlide(0)">
+                    </div>
+                    <div class="carousel-item secondaryImage">
+                        <img class="d-block w-100 itemIMG2" src="/img/HomePage/Dashboard.png" alt="Second slide"
+                             onclick="openModal();currentSlide(1)">
+                    </div>
+                    <div class="carousel-item secondaryImage">
+                        <img class="d-block w-100 itemIMG3" src="/img/HomePage/EdycjaZadania.png" alt="Third slide"
+                             onclick="openModal();currentSlide(2)">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid container-cards scroll-bar">
+        <div class="container-fluid container-innerCards">
+            <div class="row">
+                <div class="col-4 mb-4 d-inline">
+                    <div class="card h-100">
+                        <h4 class="card-header">
+                            <i class="fas fa-check-square mx-1 iconSquare"></i>Rejestracja</h4>
+                        <div class="card-body">
+                            <p class="card-text">Wygodna rejestracja przy pomocy formularza rejestracyjnego, w którym
+                                wszystkie
+                                pola podlegają walidacji</p>
+                            <p class="card-text"></p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/register" class="btn btn-primary">Przejdź do rejestracji użytkownika</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4 mb-4 d-inline">
+                    <div class="card h-100">
+                        <h4 class="card-header"><i class="fas fa-shield-alt iconShield"></i> Bezpieczeństwo</h4>
+                        <div class="card-body">
+                            <p class="card-text">Logowanie zabezpieczone poprzez protokół https wraz z certyfikatem SSL
+                                wydanym
+                                przez Let's Encrypt.</p>
+                            <p class="card-text">Szyfrowana rejestracja hasła przy pomocy algorytmu BCrypt.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://letsencrypt.org/certificates/#" class="btn btn-primary">Przeczytaj więcej o
+                                certyfikacie</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4  mb-4 ">
+                    <div class="card h-100 ">
+                        <h4 class="card-header"><i class="fas fa-rocket iconRocket"></i> Technologie</h4>
+                        <div class="card-body p-0">
+                            <img src="/img/HomePage/wordcloudBLACK.jpg" class="wordCloud">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="myModalHomePage" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myLargeModalLabel">Edytuj zgłoszenie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-light" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    <div class="container bg-light my-3 text-center">
+                        <div id="carouselExampleIndicators2" class="carousel slide carousel2 " data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active itemInModal">
+                                    <img class="d-block w-100 itemIMG1" src="/img/HomePage/NowyProjekt.png"
+                                         alt="First slide"
+                                    >
+                                </div>
+                                <div class="carousel-item itemInModal">
+                                    <img class="d-block w-100 itemIMG2" src="/img/HomePage/Dashboard.png"
+                                         alt="Second slide"
+                                    >
+                                </div>
+                                <div class="carousel-item itemInModal">
+                                    <img class="d-block w-100 itemIMG3" src="/img/HomePage/EdycjaZadania.png"
+                                         alt="Third slide"
+                                    >
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button"
+                               data-slide="prev">
+                                <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button"
+                               data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="py-2 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white" th:text="'Copyright &copy; Konrad Hryniewicki '+${presentYear}"></p>
+    </div>
+</footer>
+
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
+<script src="/js/navbar/navbar.js"></script>
+<script src="/js/homePage/homePage.js"></script>
+
+</body>
+
+</html>

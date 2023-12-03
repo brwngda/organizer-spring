@@ -47,7 +47,7 @@ public class TaskController {
     @GetMapping("/edittask")
     public String editCard(@RequestParam("id") Long id, Model model) {
         TaskDTO taskDTO = taskService.getTaskDtoFromTask(id);
-        model.addAttribute("oldTask", taskDTO);
+        model.addAttribute("task", taskDTO);
         Long projectId = taskService.getProjectIdFromTaskDTO(taskDTO);
         model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
         model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
@@ -55,7 +55,7 @@ public class TaskController {
     }
 
     @PostMapping("/edittask")
-    public String editCard(@ModelAttribute("oldTask") TaskDTO taskDTO, @RequestParam("id") Long id, BindingResult bindingResult) {
+    public String editCard(@ModelAttribute("task") TaskDTO taskDTO, @RequestParam("id") Long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "fragments_dashboard/editTask";
         }

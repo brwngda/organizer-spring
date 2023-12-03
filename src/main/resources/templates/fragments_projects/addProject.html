@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutProjects.html}">
+<head>
+    <title>Nowy Projekt</title>
+</head>
+<th:block layout:fragment="addProject">
+
+    <div class="modal fade" id="myProjects2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Utwórz zgłoszenie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/createProject}" th:object="${newProject}" method="post">
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for='name'> Nazwa projektu</label><span class="required">*</span>
+                                </div>
+                                <div class="offset-1 col-7">
+                                    <input type="text" id="name" name="name" th:field="*{name}">
+                                    <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Nazwij projekt </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for='description'> Opis projektu</label>
+                                </div>
+                                <div class="offset-1 col-7">
+                                    <input type="text" id="description" name="description"
+                                              th:field="*{description}">
+                                    <div th:if="${#fields.hasErrors('description')}" class="errorRED" th:errors="*{description}">Dodaj opis </div>
+
+                                </div>
+                            </div>
+
+                            <br>
+                            <label> Avatar</label><span class="required">*</span>
+                            <br>
+
+                            <div class="dropdown ">
+                                <img class="avatar_edit " id="img_edit_menu2" style="display: none">
+
+
+                                <button class="btn btn-secondary dropdown-toggle " type="button"
+                                        id="dropdownMenuButton2"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Wybierz avatar
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <div class="avatar_box" role="group">
+
+                                        <button th:name="${avatar}" type="button" class="btn btn_avatar"
+                                                th:each="avatar:${avatarList}" onclick="addIMG(this.name)">
+                                    <span>
+                                   <img class="avatar_edit" th:src="'img/icons/'+${avatar}">
+                                    </span>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <input type="text" id="avatar" th:name="avatar" th:field="*{avatar}"
+                                   style="display: none">
+                            <div th:if="${#fields.hasErrors('avatar')}" class="errorRED" th:errors="*{avatar}"> </div>
+
+                            <br>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Utwórz</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zakończ</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>
+<th:block layout:fragment="scripts">
+    <script src="../../js/projectBrowser/addProject.js"></script>
+</th:block>
