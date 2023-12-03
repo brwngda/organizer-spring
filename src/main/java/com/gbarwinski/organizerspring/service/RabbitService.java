@@ -27,11 +27,11 @@ public class RabbitService {
     private final DirectExchange newDirectExchange;
     private final UserService userService;
 
-    @PostConstruct
-    public void createQueuesForAllUsers() {
-        List<User> allUsers = userService.getAllUsers();
-        allUsers.forEach(user -> createQueue(user.getIdUser().toString()));
-    }
+//    @PostConstruct
+//    public void createQueuesForAllUsers() {
+//        List<User> allUsers = userService.getAllUsers();
+//        allUsers.forEach(user -> createQueue(user.getIdUser().toString()));
+//    }
 
     public void createQueue(String userId) {
         String exchange = "organizer";

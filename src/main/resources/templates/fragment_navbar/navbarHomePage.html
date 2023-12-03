@@ -11,20 +11,20 @@
 <body>
 
 
-<div th:fragment="navbar(ActualUserEmail)">
+<div th:fragment="navbar(actualUserEmail)">
     <nav id="navbarMain"
          class="navbar navbar-expand-sm navbar navbar-dark bg-dark justify-content-between shadowBox unresponsive">
         <a class="navbar-brand mx-0 permamentButtons">
             <img src="/img/scheduleIcon3.png" class="imgIcon" width="30" height="30" alt="">
         </a>
         <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">Organizer</a>
-        <div th:switch="${ActualUserEmail}">
+        <div th:switch="${actualUserEmail}">
             <a th:case="null"></a>
             <a th:case="*" class="nav-item nav-link disabled mr-sm-2 text-secondary " id="navbarActiveUserEmail"
-               th:text="${ActualUserEmail}"></a>
+               th:text="${actualUserEmail}"></a>
         </div>
         <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
-               <div th:switch="${ActualUserEmail}">
+               <div th:switch="${actualUserEmail}">
                 <a th:case="null"></a>
                 <div th:case="*">
                     <li class="nav-item item">
@@ -38,8 +38,8 @@
             <li class="nav-item item float-left ">
 
                 <a class="nav-item nav-link mr-sm-2 active "
-                   th:href="${#strings.isEmpty(ActualUserEmail)} ? '/login':'/logout '"
-                   th:text="${#strings.isEmpty(ActualUserEmail)} ? 'Zaloguj się':'Wyloguj' "></a>
+                   th:href="${#strings.isEmpty(actualUserEmail)} ? '/login':'/logout '"
+                   th:text="${#strings.isEmpty(actualUserEmail)} ? 'Zaloguj się':'Wyloguj' "></a>
             </li>
 
             <li>

@@ -140,7 +140,7 @@
                     </div>
                     <div class=" col-3">
                         <select id="roles" th:field="*{roles}">
-                            <option th:each="role:${T(com.khryniewicki.organizer.registration_login_logout.DTO.Roles).values()}"
+                            <option th:each="role:${T(com.gbarwinski.organizerspring.model.Roles).values()}"
                                     th:value="${role}" th:text="${role}"></option>
                         </select>
                     </div>

@@ -23,7 +23,7 @@
 <body>
 
 <div id="navbar" class="fixed-top">
-    <div th:replace="fragment_navbar/navbarHomePage :: navbar(${ActualUser.email})">...</div>
+    <div th:replace="fragment_navbar/navbarHomePage :: navbar(${actualUser.email})">...</div>
 </div>
 
 <header>
@@ -194,7 +194,7 @@
 
 <footer class="py-2 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white" th:text="'Copyright &copy; Konrad Hryniewicki '+${presentYear}"></p>
+        <p class="m-0 text-center text-white" th:text="'Copyright &copy; Grzegorz Barwiński '+${presentYear}"></p>
     </div>
 </footer>
 

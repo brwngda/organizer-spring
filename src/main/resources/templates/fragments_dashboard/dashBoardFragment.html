@@ -14,7 +14,7 @@
 <body>
 
 
-<div th:fragment="dashBoard(taskList,progress_steps,actualDashBoard,ActualUser,ActualUserInitialLetters,userList)">
+<div th:fragment="dashBoard(taskList,progressSteps,actualDashBoard,actualUser,actualUserInitialLetters,userList)">
 
     <div id="tools" class="bg-primary ">
         <a th:href="@{/createTask(id=${actualDashBoard.id})}" id="addCard"
@@ -91,8 +91,8 @@
 
                             <div class="col d-inline float-left">
                                 <div class="btn btn-danger mx-n1 ButtonWithInitials "
-                                     th:text="${ActualUserInitialLetters}" data-toggle="tooltip"
-                                     th:title="${ActualUser.name+' '+ActualUser.surname}">
+                                     th:text="${actualUserInitialLetters}" data-toggle="tooltip"
+                                     th:title="${actualUser.name+' '+ActualUser.surname}">
                                 </div>
 
                                 <div th:each="user:${usersAssignedToProjectApartActiveUser}"
@@ -109,7 +109,7 @@
                     </div>
                     <div class="container-fluid container-dashboard scroll-bar">
                         <div class="container-fluid container-innerDashboard">
-                            <div class="tablePROGRESS" th:each="step:${progress_steps}" draggable="false">
+                            <div class="tablePROGRESS" th:each="step:${progressSteps}" draggable="false">
                                 <div class="d-inline table-responsive">
 
                                     <div class="thead-light" th:text="${step.name}">
@@ -122,10 +122,10 @@
                                                      ondragstart="drag(event)"
                                                      ondragend="hideAll()"
                                                      th:classappend="${
-                                                                     (task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).LOW ? 'card  bg-light': '')
-                                                                     +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).MEDIUM ? 'card text-white bg-primary': '')
-                                                                     +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).HIGH  ? 'card text-white bg-warning': '')
-                                                                     +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).URGENT  ? 'card text-white bg-danger': '')} ">
+                                                                     (task.priority==T(com.gbarwinski.organizerspring.model.Priority).LOW ? 'card  bg-light': '')
+                                                                     +(task.priority==T(ccom.gbarwinski.organizerspring.model.Priority).MEDIUM ? 'card text-white bg-primary': '')
+                                                                     +(task.priority==T(com.gbarwinski.organizerspring.model.Priority).HIGH  ? 'card text-white bg-warning': '')
+                                                                     +(task.priority==T(com.gbarwinski.organizerspring.model.Priority).URGENT  ? 'card text-white bg-danger': '')} ">
 
                                                     <div class="card-body ">
                                                         <h7 class="card-title" th:text="${task.name}"></h7>
@@ -134,13 +134,13 @@
                                                         <div id="icons">
                                                             <div class=""
                                                                  th:classappend="${
-                                                                                (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'badge badge-success': '' )
-                                                                                +(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'badge badge-danger': '' )}">
+                                                                                (task.typeOfStory==T(com.gbarwinski.organizerspring.model.TypeOfStory).STORY ?'badge badge-success': '' )
+                                                                                +(task.typeOfStory==T(com.gbarwinski.organizerspring.model.TypeOfStory).BUG ?'badge badge-danger': '' )}">
 
                                                                 <i class="" data-toggle="tooltip"
                                                                    th:title="${task.typeOfStory.toString().toLowerCase()}"
-                                                                   th:classappend="${(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'far fa-bookmark': '' )+
-                                                                                 (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'fas fa-bug': '' )}"></i>
+                                                                   th:classappend="${(task.typeOfStory==T(com.gbarwinski.organizerspring.model.TypeOfStory).STORY ?'far fa-bookmark': '' )+
+                                                                                 (task.typeOfStory==T(com.gbarwinski.organizerspring.model.TypeOfStory).BUG ?'fas fa-bug': '' )}"></i>
                                                             </div>
 
                                                             <div class="badge badge-light  ">

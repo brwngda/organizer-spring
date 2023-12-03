@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 
+import static com.gbarwinski.organizerspring.utility.Attributes.NEW_USER;
+import static com.gbarwinski.organizerspring.utility.Attributes.REGISTRATION_SUCCESS;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -29,7 +32,7 @@ public class Registration {
     @GetMapping("/register")
     public String register(Model model) {
         UserDTO userDTO = new UserDTO();
-        model.addAttribute("newUser", userDTO);
+        model.addAttribute(NEW_USER, userDTO);
         return "login/registrationPage";
     }
 
@@ -52,7 +55,8 @@ public class Registration {
         if (registered == null) {
             result.rejectValue("email", "message.regError");
         }
-        model.addAttribute("registrationSuccess", true);
+        model.addAttribute(REGISTRATION_SUCCESS, true);
+        assert registered != null;
         String userId = registered.getIdUser().toString();
         rabbitService.createQueue(userId);
 

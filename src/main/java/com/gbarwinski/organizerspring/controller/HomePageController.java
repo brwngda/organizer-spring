@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.time.LocalDateTime;
 
+import static com.gbarwinski.organizerspring.utility.Attributes.*;
+
 @Controller
 public class HomePageController {
 
     @GetMapping({"/home", "/"})
     public String showHomePage(Model model) {
-        model.addAttribute("presentYear", LocalDateTime.now().getYear());
+        model.addAttribute(PRESENT_YEAR, LocalDateTime.now().getYear());
         return "homePage/index";
     }
 
@@ -24,11 +26,11 @@ public class HomePageController {
         HttpSession session = request.getSession(false);
         User appUser = null;
         if (session != null)
-            appUser = (User) session.getAttribute("appUser");
+            appUser = (User) session.getAttribute(APP_USER);
         if (appUser != null) {
-            model.addAttribute("ActualUser", appUser);
+            model.addAttribute(ACTUAL_USER, appUser);
         } else {
-            model.addAttribute("ActualUser", new User());
+            model.addAttribute(ACTUAL_USER, new User());
         }
     }
 }

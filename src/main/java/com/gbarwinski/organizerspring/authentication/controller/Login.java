@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.gbarwinski.organizerspring.utility.Attributes.LOGIN_ERROR;
+
 
 @RestController
 public class Login {
@@ -16,7 +18,7 @@ public class Login {
 
     @GetMapping("/login-error")
     public String login_error(Model model) {
-        model.addAttribute("loginError", true);
+        model.addAttribute(LOGIN_ERROR, true);
         return "login/loginPage";
     }
 }

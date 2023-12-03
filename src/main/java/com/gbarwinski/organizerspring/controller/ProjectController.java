@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+import static com.gbarwinski.organizerspring.utility.Attributes.*;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -48,8 +50,8 @@ public class ProjectController {
 
     @GetMapping("/editproject")
     public String editProject(@RequestParam("id") Long projectId, Model model) {
-        model.addAttribute("oldProject", projectService.findProjectAndTransferToDTO(projectId));
-        model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
+        model.addAttribute(OLD_PROJECT, projectService.findProjectAndTransferToDTO(projectId));
+        model.addAttribute(USERS_ASSIGNED_TO_PROJECT, userService.getAllUsersAssignedToProject(projectId));
         return "fragments_projects/editProject";
     }
 
@@ -74,9 +76,9 @@ public class ProjectController {
         User appUser = null;
         if (session != null) appUser = (User) session.getAttribute("appUser");
         if (appUser != null) {
-            model.addAttribute("avatarList", UtilityClass.getListOfIconTitles());
-            model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
-            model.addAttribute("logsAboutProjects", messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
+            model.addAttribute(AVATAR_LIST, UtilityClass.getListOfIconTitles());
+            model.addAttribute(ALL_ADMINS_INITIALS_LIST, projectService.getProjectAdminNameAndSurname());
+            model.addAttribute(LOGS_ABOUT_PROJECTS, messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
         }
     }
 }

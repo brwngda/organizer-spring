@@ -4,12 +4,13 @@ import com.gbarwinski.organizerspring.DTO.TaskDTO;
 import com.gbarwinski.organizerspring.model.Task;
 import com.gbarwinski.organizerspring.service.TaskService;
 import com.gbarwinski.organizerspring.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import static com.gbarwinski.organizerspring.utility.Attributes.*;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -22,9 +23,9 @@ public class TaskController {
 
     @GetMapping("/createTask")
     public String addCard(@RequestParam("id") Long projectId, Model model) {
-        model.addAttribute("newTask", taskService.newTaskDtoWithAssignedProjectId(projectId));
-        model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
-        model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
+        model.addAttribute(NEW_TASK, taskService.newTaskDtoWithAssignedProjectId(projectId));
+        model.addAttribute(USERS_ASSIGNED_TO_PROJECT, userService.getAllUsersAssignedToProject(projectId));
+        model.addAttribute(USERS_ASSIGNED_TO_PROJECT_APART_ACTIVE_USER, userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
         return "fragments_dashboard/createTask";
     }
 
@@ -49,8 +50,8 @@ public class TaskController {
         TaskDTO taskDTO = taskService.getTaskDtoFromTask(id);
         model.addAttribute("task", taskDTO);
         Long projectId = taskService.getProjectIdFromTaskDTO(taskDTO);
-        model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
-        model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
+        model.addAttribute(USERS_ASSIGNED_TO_PROJECT, userService.getAllUsersAssignedToProject(projectId));
+        model.addAttribute(USERS_ASSIGNED_TO_PROJECT_APART_ACTIVE_USER, userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
         return "fragments_dashboard/editTask";
     }
 

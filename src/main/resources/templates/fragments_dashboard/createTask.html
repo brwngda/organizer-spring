@@ -37,7 +37,7 @@
 
                         <div class='form-group'><label for='typeOfStory'> Typ zgłoszenia</label><span class="required">*</span>
                             <select id='typeOfStory' th:field="${newTask.typeOfStory}">
-                                <option th:each="type:${T(com.khryniewicki.organizer.main_content.model.TypeOfStory).values()}"
+                                <option th:each="type:${T(com.gbarwinski.organizerspring.model.TypeOfStory).values()}"
                                         th:value="${type}"
                                         th:text="${type}">
                                 </option>
@@ -69,7 +69,7 @@
 
                         <div class='form-group'><label for='Priority'> Priorytet</label><span class="required">*</span>
                             <select id='Priority' th:field="${newTask.priority}">
-                                <option th:each="priority:${T(com.khryniewicki.organizer.main_content.model.Priority).values()}"
+                                <option th:each="priority:${T(com.gbarwinski.organizerspring.model.Priority).values()}"
                                         th:value="${priority}"
                                         th:text="${priority}"
                                 ></option>

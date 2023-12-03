@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.gbarwinski.organizerspring.utility.Attributes.*;
+
 @ControllerAdvice
 @Data
 @RequiredArgsConstructor
@@ -29,13 +31,15 @@ public class DashboardController {
     @GetMapping("/dashboard")
     public String showDashBoard(@RequestParam("id") Long projectId, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("appUser") == null) return "redirect:/logout";
+        if (session.getAttribute(APP_USER) == null) {
+            return "redirect:/logout";
+        }
         Project actualProject = projectService.findProjectById(projectId);
-        model.addAttribute("actualDashBoard", actualProject);
-        model.addAttribute("taskList", taskService.getTasksByProject(projectId));
-        model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
-        model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
-        session.setAttribute("actualDashBoard", actualProject);
+        model.addAttribute(ACTUAL_DASHBOARD, actualProject);
+        model.addAttribute(TASK_LIST, taskService.getTasksByProject(projectId));
+        model.addAttribute(USERS_ASSIGNED_TO_PROJECT, userService.getAllUsersAssignedToProject(projectId));
+        model.addAttribute(USERS_ASSIGNED_TO_PROJECT_APART_ACTIVE_USER, userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
+        session.setAttribute(ACTUAL_DASHBOARD, actualProject);
         return "fragments_dashboard/dashBoard";
     }
 
@@ -50,20 +54,20 @@ public class DashboardController {
         User appUser = null;
         Project actualProject = null;
         if (session != null) {
-            appUser = (User) session.getAttribute("appUser");
-            actualProject = (Project) session.getAttribute("actualDashBoard");
+            appUser = (User) session.getAttribute(APP_USER);
+            actualProject = (Project) session.getAttribute(ACTUAL_DASHBOARD);
         }
         if (appUser != null) {
-            model.addAttribute("ActualUser", appUser);
-            model.addAttribute("ActualUserInitialLetters", userService.getInitialLetters(appUser));
-            model.addAttribute("actualDashBoard", actualProject);
-            model.addAttribute("progress_steps", progressService.findAllProgress());
-            model.addAttribute("projectList", projectService.getAllProjectsForUser());
-            model.addAttribute("sprintList", sprintService.findAll());
-            model.addAttribute("sprint", new Sprint());
-            model.addAttribute("taskList", taskService.getTasksByProject(actualProject));
-            model.addAttribute("userList", userService.getAllUsersApartActiveUser());
-            model.addAttribute("logsAboutProjects", messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
+            model.addAttribute(ACTUAL_USER, appUser);
+            model.addAttribute(ACTUAL_USER_INITIAL_LETTERS, userService.getInitialLetters(appUser));
+            model.addAttribute(ACTUAL_DASHBOARD, actualProject);
+            model.addAttribute(PROGRESS_STEPS, progressService.findAllProgress());
+            model.addAttribute(PROJECT_LIST, projectService.getAllProjectsForUser());
+            model.addAttribute(SPRINT_LIST, sprintService.findAll());
+            model.addAttribute(SPRINT, new Sprint());
+            model.addAttribute(TASK_LIST, taskService.getTasksByProject(actualProject));
+            model.addAttribute(USER_LIST, userService.getAllUsersApartActiveUser());
+            model.addAttribute(LOGS_ABOUT_PROJECTS, messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
         }
     }
 }

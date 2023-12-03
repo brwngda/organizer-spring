@@ -12,7 +12,7 @@
     <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
 
 <body>
-<div th:fragment="panel(projectList,ActualUser)">
+<div th:fragment="panel(projectList,actualUser)">
     <div class="container-fluid px-3">
         <br>
         <div class="row">
@@ -94,7 +94,7 @@
                         <div class="columnWithIcon">
                             <div th:each="adminNameAndSurname:${allAdminsInitialsList}"
                                  th:id="${adminNameAndSurname.email==project.admin}?'goodbutton':'btndisplaynone'"
-                                 th:classappend="${adminNameAndSurname.email==ActualUser.email}? 'btn mx-1 ButtonWithInitials btn-danger ' : 'btn mx-1 ButtonWithInitials btn-secondary '"
+                                 th:classappend="${adminNameAndSurname.email==actualUser.email}? 'btn mx-1 ButtonWithInitials btn-danger ' : 'btn mx-1 ButtonWithInitials btn-secondary '"
                                  th:text="${adminNameAndSurname.email==project.admin} ? ${adminNameAndSurname.name.substring(0,1)+adminNameAndSurname.surname.substring(0,1)}:'' "
                                  data-toggle="tooltip"
                                  th:title="${adminNameAndSurname.email==project.admin} ? ${adminNameAndSurname.name+' '+adminNameAndSurname.surname} :''">
@@ -106,7 +106,7 @@
                             </a>
 
                             <a th:href="@{/editproject(id=${project.id})}"
-                               th:classappend="${ActualUser.email==project.admin} ? '':'btn disabled '"><i
+                               th:classappend="${actualUser.email==project.admin} ? '':'btn disabled '"><i
                                     class="fas fa-cogs icon " id="cogs" data-toggle="tooltip"
                                     th:title="Edytuj">
                             </i></a>

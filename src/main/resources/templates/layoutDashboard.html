@@ -16,12 +16,12 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div id="userId" th:name="${ActualUser.idUser}"></div>
+    <div id="userId" th:name="${actualUser.idUser}"></div>
     <div id="navbar">
-        <div th:replace="fragment_navbar/navbar :: navbar(${ActualUser.email},${logsAboutProjects})">...</div>
+        <div th:replace="fragment_navbar/navbar :: navbar(${actualUser.email},${logsAboutProjects})">...</div>
     </div>
     <div id="dashboard">
-        <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${actualDashBoard},${ActualUser},${ActualUserInitialLetters},${userList})"></div>
+        <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progressSteps},${actualDashBoard},${actualUser},${actualUserInitialLetters},${userList})"></div>
 
         <section layout:fragment="content">
 

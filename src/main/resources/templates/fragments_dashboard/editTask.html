@@ -39,7 +39,7 @@
                         <div class='form-group'><label for='typeOfStory'> Typ zgłoszenia</label><span
                                 class="required">*</span>
                             <select id='typeOfStory' th:field="${task.typeOfStory}">
-                                <option th:each="type:${T(com.khryniewicki.organizer.main_content.model.TypeOfStory).values()}"
+                                <option th:each="type:${T(com.gbarwinski.organizerspring.model.TypeOfStory).values()}"
                                         th:value="${type}"
                                         th:text="${type}"
                                         th:selected="${type==task.typeOfStory}">
@@ -74,7 +74,7 @@
                         <div class='form-group'>
                             <label for='Priority'> Priorytet</label><span class="required">*</span>
                             <select id='Priority' th:field="${task.priority}">
-                                <option th:each="priority:${T(com.khryniewicki.organizer.main_content.model.Priority).values()}"
+                                <option th:each="priority:${T(com.gbarwinski.organizerspring.model.Priority).values()}"
                                         th:value="${priority}"
                                         th:text="${priority}"
                                         th:selected="${priority==task.priority}"
@@ -122,7 +122,7 @@
                         <a type="button" th:href="@{/deletetask(id=${task.idTask})}"
                            class="btn btn-warning">Usuń</a>
                         <button type="submit" class="btn btn-primary edittaskbtn"
-                                th:id="'edittaskbtn_'+${task.idTask}+'_'+${ActualUser.idUser}">Zapisz
+                                th:id="'edittaskbtn_'+${task.idTask}+'_'+${actualUser.idUser}">Zapisz
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
 
