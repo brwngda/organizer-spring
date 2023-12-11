@@ -1,8 +1,9 @@
 package com.gbarwinski.organizerspring.utility;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public final class Attributes {
-    private Attributes() {
-    }
 
     public static final String ACTUAL_DASHBOARD = "actualDashBoard";
     public static final String NEW_TASK = "newTask";

@@ -64,7 +64,7 @@ public class Registration {
     }
 
     private User createUserAccount(UserDTO userDTO) {
-        User registered = null;
+        User registered;
         try {
             registered = loggingUserService.registerNewUserAccount(userDTO);
         } catch (IOException e) {

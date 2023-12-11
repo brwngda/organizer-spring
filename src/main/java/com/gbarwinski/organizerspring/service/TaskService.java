@@ -22,7 +22,6 @@ public class TaskService {
     private final SprintService sprintService;
 
     public void saveTask(Task task) {
-        task.setProgress(progressService.findAllProgress().get(0).getName());
         taskRepository.save(task);
     }
 

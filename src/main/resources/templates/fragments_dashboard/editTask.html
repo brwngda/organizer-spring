@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layoutDashboard.html}">
 <head>
-    <title>Edycja Zadania -Organizer</title>
+    <title>Edit task - Organizer</title>
 </head>
 
 <th:block layout:fragment="content">
@@ -12,7 +12,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content modaledit">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edytuj zgłoszenie</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit type of story</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -29,14 +29,13 @@
                                         th:selected="${project.id==task.project.id}">
                                 </option>
                             </select>
-                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Wybierz
-                                projekt
+                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Choose the project
                             </div>
 
                         </div>
                         <br>
 
-                        <div class='form-group'><label for='typeOfStory'> Typ zgłoszenia</label><span
+                        <div class='form-group'><label for='typeOfStory'> Type of story</label><span
                                 class="required">*</span>
                             <select id='typeOfStory' th:field="${task.typeOfStory}">
                                 <option th:each="type:${T(com.gbarwinski.organizerspring.model.TypeOfStory).values()}"
@@ -47,32 +46,31 @@
                                 </option>
                             </select>
                             <div th:if="${#fields.hasErrors('typeOfStory')}" class="errorRED"
-                                 th:errors="*{typeOfStory}">Wybierz typ zgłoszenia
+                                 th:errors="*{typeOfStory}">Choose type of story
                             </div>
 
                         </div>
 
                         <br>
                         <div class='form-group'>
-                            <label for='name'> Podsumowanie</label><span class="required">*</span>
+                            <label for='name'> Summary</label><span class="required">*</span>
                             <input id='name' class='form-control w-50' type='text' th:field="${task.name}">
-                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Popraw nazwę
-                                podsumowania
+                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Correct the summary name
                             </div>
 
                         </div>
 
-                        <div class='form-group'><label for='description'> Opis</label>
+                        <div class='form-group'><label for='description'> Description</label>
                             <textarea id='description' class='form-control' type='text'
                                       th:field="${task.description}" rows="5"></textarea>
                             <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-                                 class="errorRED">Popraw nazwę opisu
+                                 class="errorRED">Correct the description name
                             </div>
 
                         </div>
 
                         <div class='form-group'>
-                            <label for='Priority'> Priorytet</label><span class="required">*</span>
+                            <label for='Priority'> Priority</label><span class="required">*</span>
                             <select id='Priority' th:field="${task.priority}">
                                 <option th:each="priority:${T(com.gbarwinski.organizerspring.model.Priority).values()}"
                                         th:value="${priority}"
@@ -80,24 +78,24 @@
                                         th:selected="${priority==task.priority}"
                                 ></option>
                             </select>
-                            <div th:if="${#fields.hasErrors('Priority')}" th:errors="*{priority}">Wybierz priorytet
+                            <div th:if="${#fields.hasErrors('Priority')}" th:errors="*{priority}">Choose the priority
                             </div>
 
                         </div>
                         <div class='form-group'>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-3">
-                                    <label for='AttachedUser'> Osoba przypisana: </label>
+                                    <label for='AttachedUser'> Assigned User: </label>
                                 </div>
 
                                 <div class="col-lg-2 col-md-2  col-sm-2 col-3">
                                     <p id='AttachedUser'
-                                       th:text="${task.user==null}? 'Brak osoby przypisanej': ${task.user.name+' '+task.user.surname}"></p>
+                                       th:text="${task.user==null}? 'No assigned user': ${task.user.name+' '+task.user.surname}"></p>
                                 </div>
 
 
                                 <div class="offset-lg-2 offset-md-2 offset-sm-2  col-lg-2 col-md-2  col-sm-2   col-3 px-1">
-                                    <label for='user'> Przypisz użytkownika:</label>
+                                    <label for='user'> Add new user to task:</label>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3  col-sm-3  col-3 ">
@@ -110,7 +108,7 @@
                                                 th:selected="${user==task.user}"
                                         ></option>
                                     </select>
-                                    <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}">Wybierz priorytet
+                                    <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}">Choose the priority
                                     </div>
 
                                 </div>
@@ -120,11 +118,11 @@
                     </div>
                     <div class="modal-footer">
                         <a type="button" th:href="@{/deletetask(id=${task.idTask})}"
-                           class="btn btn-warning">Usuń</a>
+                           class="btn btn-warning">Delete</a>
                         <button type="submit" class="btn btn-primary edittaskbtn"
-                                th:id="'edittaskbtn_'+${task.idTask}+'_'+${actualUser.idUser}">Zapisz
+                                th:id="'edittaskbtn_'+${task.idTask}+'_'+${actualUser.idUser}">Save
                         </button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                     </div>
 

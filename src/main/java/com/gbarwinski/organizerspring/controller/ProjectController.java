@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ import static com.gbarwinski.organizerspring.utility.Attributes.*;
 
 @Slf4j
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -30,19 +31,19 @@ public class ProjectController {
 
     @GetMapping("/projects")
     public String showProjects(Model model, HttpServletRequest request) {
-        return "fragments_projects/browserProject";
+        return "templates/fragments_projects/browserProject.html";
     }
 
     @GetMapping("/createProject")
     public String createProject(Model model) {
         model.addAttribute("newProject", new ProjectDTO());
-        return "fragments_projects/addProject";
+        return "templates/fragments_projects/addProject";
     }
 
     @PostMapping("/createProject")
     public String createProject(@ModelAttribute("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "fragments_projects/addProject";
+            return "templates/fragments_projects/addProject";
         }
         projectService.createProject(projectDTO);
         return "redirect:/projects";
@@ -68,6 +69,12 @@ public class ProjectController {
     public String deleteProject(@RequestParam("id") Long id) {
         projectService.deleteProject(id);
         return "redirect:/projects";
+    }
+
+    @GetMapping("/project/{projectId}/{userId}")
+    public String addUserToProject(@PathVariable("projectId") Long projectId, @PathVariable("userId") Long userId) {
+        projectService.addUserToProject(projectId, userId);
+        return "Result: positive";
     }
 
     @ModelAttribute

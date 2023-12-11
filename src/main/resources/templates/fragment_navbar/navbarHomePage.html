@@ -28,7 +28,7 @@
                 <a th:case="null"></a>
                 <div th:case="*">
                     <li class="nav-item item">
-                        <a class="nav-item nav-link active " href="/projects">Projekty</a>
+                        <a class="nav-item nav-link active " href="/projects">Projects</a>
                     </li>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
                 <a class="nav-item nav-link mr-sm-2 active "
                    th:href="${#strings.isEmpty(actualUserEmail)} ? '/login':'/logout '"
-                   th:text="${#strings.isEmpty(actualUserEmail)} ? 'Zaloguj się':'Wyloguj' "></a>
+                   th:text="${#strings.isEmpty(actualUserEmail)} ? 'Login':'Logout' "></a>
             </li>
 
             <li>
