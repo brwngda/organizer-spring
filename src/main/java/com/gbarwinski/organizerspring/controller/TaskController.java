@@ -4,22 +4,27 @@ import com.gbarwinski.organizerspring.DTO.TaskDTO;
 import com.gbarwinski.organizerspring.model.Task;
 import com.gbarwinski.organizerspring.service.TaskService;
 import com.gbarwinski.organizerspring.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.WebApplicationContext;
 
 import static com.gbarwinski.organizerspring.utility.Attributes.*;
 
 @ControllerAdvice
 @RequiredArgsConstructor
-@RestController
+@Controller
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class TaskController {
 
     private final TaskService taskService;
     private final UserService userService;
-
 
     @GetMapping("/createTask")
     public String addCard(@RequestParam("id") Long projectId, Model model) {
@@ -71,12 +76,13 @@ public class TaskController {
         return "redirect:/dashboard?id=" + projectId;
     }
 
-    @GetMapping("/task/{taskId}/{progress}")
-    public void updateCardProgress(@PathVariable("taskId") Long taskId, @PathVariable("progress") String progress) {
-        Task task = taskService.findTask(taskId);
-        task.setProgress(progress);
-        taskService.saveTask(task);
+    @ModelAttribute("requestURI")
+    public String requestURI(final HttpServletRequest request) {
+        return request.getRequestURI();
     }
 
-
+    @ModelAttribute("requestId")
+    public String requestId(final HttpServletRequest request) {
+        return request.getRequestId();
+    }
 }

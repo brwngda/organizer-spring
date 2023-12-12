@@ -17,11 +17,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form th:action="@{${#request.getRequestURI()}(id=${#request.getParameter('id')})}"
+
+                <div>
+                    <p th:text="${requestId}"></p>
+                </div>
+
+<!--                <form th:action="@{/requestURI/{id}(id=${requestId})}"-->
+
+                <form th:action="@{/createTask/(id=${user.id})}">
                       th:object="${newTask}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
-                            <label for='project'> Projekt</label><span class="required">*</span>
+                            <label for='project'> Project</label><span class="required">*</span>
                             <select id='project' th:field="${newTask.project}">
                                 <option th:each="project:${projectList}"
                                         th:value="${project.id}"
@@ -79,7 +86,7 @@
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Create</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Finish</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
 
                     </div>

@@ -6,19 +6,22 @@ import com.gbarwinski.organizerspring.model.User;
 import com.gbarwinski.organizerspring.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
 import static com.gbarwinski.organizerspring.utility.Attributes.*;
 
 @ControllerAdvice
-@Data
 @RequiredArgsConstructor
-@RestController
+@Controller
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DashboardController {
 
     private final ProjectService projectService;
@@ -43,11 +46,6 @@ public class DashboardController {
         return "fragments_dashboard/dashBoard";
     }
 
-    @GetMapping("/dashboard/allUsers")
-    public List<User> getAllUsers() {
-        return userService.getAllUsersApartActiveUser();
-    }
-
     @ModelAttribute
     public void AddAttributes(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -69,5 +67,15 @@ public class DashboardController {
             model.addAttribute(USER_LIST, userService.getAllUsersApartActiveUser());
             model.addAttribute(LOGS_ABOUT_PROJECTS, messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
         }
+    }
+
+    @ModelAttribute("requestURI")
+    public String requestURI(final HttpServletRequest request) {
+        return request.getRequestURI();
+    }
+
+    @ModelAttribute("requestId")
+    public String requestId(final HttpServletRequest request) {
+        return request.getRequestId();
     }
 }

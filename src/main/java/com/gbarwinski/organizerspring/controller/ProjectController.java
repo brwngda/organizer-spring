@@ -11,18 +11,23 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 
 import static com.gbarwinski.organizerspring.utility.Attributes.*;
 
 @Slf4j
+@ControllerAdvice
 @RequiredArgsConstructor
 @Controller
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -31,50 +36,35 @@ public class ProjectController {
 
     @GetMapping("/projects")
     public String showProjects(Model model, HttpServletRequest request) {
-        return "templates/fragments_projects/browserProject.html";
+        return "fragments_projects/browserProject";
     }
 
     @GetMapping("/createProject")
     public String createProject(Model model) {
         model.addAttribute("newProject", new ProjectDTO());
-        return "templates/fragments_projects/addProject";
+        return "fragments_projects/addProject";
     }
 
     @PostMapping("/createProject")
     public String createProject(@ModelAttribute("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "templates/fragments_projects/addProject";
+            return "fragments_projects/addProject";
         }
         projectService.createProject(projectDTO);
         return "redirect:/projects";
     }
 
-    @GetMapping("/editproject")
+    @GetMapping("/editProject")
     public String editProject(@RequestParam("id") Long projectId, Model model) {
         model.addAttribute(OLD_PROJECT, projectService.findProjectAndTransferToDTO(projectId));
         model.addAttribute(USERS_ASSIGNED_TO_PROJECT, userService.getAllUsersAssignedToProject(projectId));
         return "fragments_projects/editProject";
     }
 
-    @PostMapping("/editproject")
-    public String editProject(Model model, @ModelAttribute("oldProject") ProjectDTO projectDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "fragments_projects/addProject";
-        }
-        projectService.updateProject(projectDTO);
-        return "redirect:/projects";
-    }
-
     @GetMapping("/deleteProject")
     public String deleteProject(@RequestParam("id") Long id) {
         projectService.deleteProject(id);
         return "redirect:/projects";
-    }
-
-    @GetMapping("/project/{projectId}/{userId}")
-    public String addUserToProject(@PathVariable("projectId") Long projectId, @PathVariable("userId") Long userId) {
-        projectService.addUserToProject(projectId, userId);
-        return "Result: positive";
     }
 
     @ModelAttribute

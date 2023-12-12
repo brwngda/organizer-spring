@@ -34,7 +34,7 @@ public class ProjectService {
         return filterProjectsForUser(activeUser);
     }
 
-    public List<Project> getAllProjects() {
+    public List<Project>    getAllProjects() {
         return projectRepository.findAll();
     }
 
@@ -69,10 +69,16 @@ public class ProjectService {
     }
 
     public Project addInitialProject(User user) {
+        List<User> userList = new ArrayList<>();
+        User initialUser = User.builder()
+                .email(user.getEmail())
+                .build();
+        userList.add(initialUser);
         Project initialProject = Project.builder()
                 .name("Name of your project")
                 .description("Description of your project")
                 .avatar("icons/015.png")
+                .users(userList)
                 .isStarred(false)
                 .build();
         projectRepository.save(initialProject);

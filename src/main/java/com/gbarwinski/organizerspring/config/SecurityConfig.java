@@ -21,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import static com.gbarwinski.organizerspring.utility.UrlPaths.*;
 
 @Configuration
-@ComponentScan("com.gbarwinski.organizer")
+@ComponentScan("com.gbarwinski.organizerspring")
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {

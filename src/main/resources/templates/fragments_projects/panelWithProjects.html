@@ -27,7 +27,7 @@
             </div>
         </div>
         <br>
-        <h7 class="px-3">Ostatnie</h7> //todo: co to?
+        <h7 class="px-3">Last Projects:</h7>
     </div>
     <div class="container-fluid my-2" id="project_browser">
 
@@ -105,7 +105,7 @@
                             <a th:text="${project.admin}">
                             </a>
 
-                            <a th:href="@{/editproject(id=${project.id})}"
+                            <a th:href="@{/editProject(id=${project.id})}"
                                th:classappend="${actualUser.email==project.admin} ? '':'btn disabled '"><i
                                     class="fas fa-cogs icon " id="cogs" data-toggle="tooltip"
                                     th:title="Edit">

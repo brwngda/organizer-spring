@@ -18,6 +18,8 @@ public class CustomLogoutHandler implements LogoutHandler {
                        Authentication authentication) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("appUser");
-        log.info("User " + user.getEmail() + " was logged out");
+        if (user != null) {
+            log.info("User " + user.getEmail() + " was logged out");
+        }
     }
 }

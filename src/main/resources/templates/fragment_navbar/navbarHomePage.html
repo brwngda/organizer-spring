@@ -17,7 +17,7 @@
         <a class="navbar-brand mx-0 permamentButtons">
             <img src="/img/scheduleIcon3.png" class="imgIcon" width="30" height="30" alt="">
         </a>
-        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">Organizer</a>
+        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">ORGANIZER</a>
         <div th:switch="${actualUserEmail}">
             <a th:case="null"></a>
             <a th:case="*" class="nav-item nav-link disabled mr-sm-2 text-secondary " id="navbarActiveUserEmail"
@@ -28,7 +28,7 @@
                 <a th:case="null"></a>
                 <div th:case="*">
                     <li class="nav-item item">
-                        <a class="nav-item nav-link active " href="/projects">Projects</a>
+                        <a class="nav-item nav-link active " href="/projects">MY PROJECTS</a>
                     </li>
                 </div>
             </div>

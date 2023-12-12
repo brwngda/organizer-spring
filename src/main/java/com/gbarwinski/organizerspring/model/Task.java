@@ -24,7 +24,7 @@ public class Task {
     @JsonIgnore
     private Sprint sprint;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JsonIgnore
     private Project project;
 
