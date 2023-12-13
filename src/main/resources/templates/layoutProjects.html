@@ -19,10 +19,10 @@
     <div id="userId" th:name="${actualUser.idUser}"></div>
 
     <div id="navbar">
-        <div th:replace="fragment_navbar/navbar :: navbar(${actualUser.email},${logsAboutProjects})">...</div>
+        <div th:replace="~{fragment_navbar/navbar :: navbar(${actualUser.email},${logsAboutProjects})}">...</div>
     </div>
 
-        <div th:replace="fragments_projects/panelWithProjects::panel(${projectList},${actualUser})"></div>
+        <div th:replace="~{fragments_projects/panelWithProjects::panel(${projectList},${actualUser})}"></div>
 
         <section layout:fragment="editProject"></section>
 

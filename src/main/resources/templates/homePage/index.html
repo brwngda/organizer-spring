@@ -23,7 +23,7 @@
 <body>
 
 <div id="navbar" class="fixed-top">
-    <div th:replace="fragment_navbar/navbarHomePage :: navbar(${actualUser.email})">...</div>
+    <div th:replace="~{fragment_navbar/navbarHomePage :: navbar(${actualUser.email})}">...</div>
 </div>
 
 <header>

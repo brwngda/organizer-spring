@@ -29,10 +29,11 @@ public class SecurityConfig {
     private final LoggingUserService loggingUserService;
     private final EncoderConfig encoderConfig;
 
-    @Bean
-    public WebSecurityCustomizer ignoringCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/resources/**", "/webjars/**", "/img/**");
-    }
+    // todo: do usunięcia?
+//    @Bean
+//    public WebSecurityCustomizer ignoringCustomizer() {
+//        return (web) -> web.ignoring().requestMatchers("/resources/**", "/webjars/**", "/img/**");
+//    }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(encoderConfig.authProvider());
@@ -41,7 +42,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/", CSS_ALLOW_ALL, JS_ALLOW_ALL, REGISTER, LOGIN_ALLOW_ALL, LOGIN_ERROR, LOGOUT, HOME, TASK_INFORMATION).permitAll()
+                        auth -> auth.requestMatchers("/resources/**", "/webjars/**", "/img/**", "/", CSS_ALLOW_ALL, JS_ALLOW_ALL, REGISTER, LOGIN_ALLOW_ALL, LOGIN_ERROR, LOGOUT, HOME, TASK_INFORMATION).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(login -> login.loginPage(LOGIN)
                         .loginProcessingUrl(LOGIN)

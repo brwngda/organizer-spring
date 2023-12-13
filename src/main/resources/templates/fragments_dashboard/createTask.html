@@ -22,8 +22,6 @@
                     <p th:text="${requestId}"></p>
                 </div>
 
-<!--                <form th:action="@{/requestURI/{id}(id=${requestId})}"-->
-
                 <form th:action="@{/createTask/(id=${user.id})}">
                       th:object="${newTask}" method="post">
                     <div class="modal-body">
