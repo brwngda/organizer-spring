@@ -21,20 +21,20 @@
                     <div class="modal-body">
 
                         <div class='form-group'>
-                            <label for='name'> Project name</label><span class="required">*</span>
+                            <label for='name'>Project name</label><span class="required">*</span>
                             <input id="name" name="name" class='form-control' type='text'
                                    th:field="${oldProject.name}">
-                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Add project name </div>
+                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Add project name</div>
 
                         </div>
 
                         <br>
 
                         <div class='form-group'>
-                            <label for='description'> Opis projektu</label>
+                            <label for='description'>Description</label>
                             <input id="description" name="oldProject.description" class='form-control'
                                    type='text' th:field="${oldProject.description}">
-                            <div th:if="${#fields.hasErrors('description')}" class="errorRED" th:errors="*{description}">Add description </div>
+                            <div th:if="${#fields.hasErrors('description')}" class="errorRED" th:errors="*{description}">Add description</div>
 
                         </div>
                         <label> Avatar</label> <span class="required">*</span>
@@ -45,7 +45,7 @@
 
                             <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Wybierz avatar
+                                Choose avatar
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="avatar_box" role="group">
@@ -69,7 +69,7 @@
                         <br>
 
                         <div class='form-group'>
-                            <label for='admin'> Project manager</label><span class="required">*</span>
+                            <label for='admin'>Project manager</label><span class="required">*</span>
                             <select id='admin' th:field="*{admin}" >
                                 <option th:each="user:${usersAssignedToProject}" th:value="${user.email} " aria-describedby="adminHelp"
                                         th:text="${user.name + ' '+ user.surname}"

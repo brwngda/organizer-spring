@@ -26,7 +26,7 @@
                       th:object="${newTask}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
-                            <label for='project'> Project</label><span class="required">*</span>
+                            <label for='project'>Project</label><span class="required">*</span>
                             <select id='project' th:field="${newTask.project}">
                                 <option th:each="project:${projectList}"
                                         th:value="${project.id}"
@@ -35,19 +35,19 @@
 
                                 ></option>
                             </select>
-                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Choose the project </div>
+                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Choose the project</div>
 
                         </div>
                         <br>
 
-                        <div class='form-group'><label for='typeOfStory'> Type of story</label><span class="required">*</span>
+                        <div class='form-group'><label for='typeOfStory'>Type of story</label><span class="required">*</span>
                             <select id='typeOfStory' th:field="${newTask.typeOfStory}">
                                 <option th:each="type:${T(com.gbarwinski.organizerspring.model.TypeOfStory).values()}"
                                         th:value="${type}"
                                         th:text="${type}">
                                 </option>
                             </select>
-                            <div th:if="${#fields.hasErrors('typeOfStory')}" class="errorRED" th:errors="*{typeOfStory}">Choose type of story </div>
+                            <div th:if="${#fields.hasErrors('typeOfStory')}" class="errorRED" th:errors="*{typeOfStory}">Choose type of story</div>
 
                         </div>
 
@@ -57,9 +57,9 @@
                         </div>
                         <br>
                         <div class='form-group'>
-                            <label for='name'> Summary</label><span class="required">*</span>
+                            <label for='name'>Summary</label><span class="required">*</span>
                             <input id='name' class='form-control' type='text' th:field="${newTask.name}">
-                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Correct the summary name </div>
+                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Correct the summary name</div>
 
                         </div>
                         <div class='form-group'><label for='description'> Description</label>
@@ -72,7 +72,7 @@
                         </div>
 
 
-                        <div class='form-group'><label for='Priority'> Priority</label><span class="required">*</span>
+                        <div class='form-group'><label for='Priority'>Priority</label><span class="required">*</span>
                             <select id='Priority' th:field="${newTask.priority}">
                                 <option th:each="priority:${T(com.gbarwinski.organizerspring.model.Priority).values()}"
                                         th:value="${priority}"

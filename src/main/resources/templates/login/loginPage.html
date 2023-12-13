@@ -26,7 +26,7 @@
             <div class="card-header">
                 <h3>Login</h3>
             </div>
-            <div th:if="${registrationSuccess}" class="error login-info-message">User has been registered</div>
+            <div th:if="${registrationSuccess}" class="error login-info-message">User has been successfully registered</div>
             <div th:if="${loginError}" class="error login-info-message">Invalid login details</div>
             <div th:if="${param.logout}" class="login-info-message">You have been safely logged out</div>
             <div class="card-body">

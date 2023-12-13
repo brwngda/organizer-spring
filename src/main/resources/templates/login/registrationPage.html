@@ -74,12 +74,12 @@
         <div class="form-group formContainer">
             <div class="row">
                 <div class="col-3">
-                    <label for="exampleInputEmail1">Address email</label>
+                    <label for="exampleInputEmail1">Email address</label>
                 </div>
                 <div class=" col-6">
                     <input type="email" class="form-control " id="exampleInputEmail1"
                            aria-describedby="emailHelp"
-                           placeholder="Enter email" th:field="*{email}">
+                           placeholder="Enter email address" th:field="*{email}">
                 </div>
             </div>
             <div class="row">
@@ -104,7 +104,7 @@
             </div>
             <div class="row text-wrap ">
                 <small id="passwordHelp" class="form-text offset-3 col-6 text-light ">
-                    The password should consist of at least 8 characters, including a capital letter, a number and a special character.</small>
+                    The password should consist of at least 8 characters, including capital letter, number and special character.</small>
                 <div class="offset-3 col-9 ">
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                       class="login-info-message">Password Error</span>
@@ -119,7 +119,7 @@
                 </div>
                 <div class=" col-6">
                     <input type="password" class="form-control " id="matchingPassword"
-                           placeholder="Enter password"
+                           placeholder="Password"
                            th:field="*{matchingPassword}">
                 </div>
             </div>

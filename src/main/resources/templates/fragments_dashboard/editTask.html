@@ -21,7 +21,7 @@
                       th:object="${task}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
-                            <label for='project'> Projekt</label><span class="required">*</span>
+                            <label for='project'>Project</label><span class="required">*</span>
                             <select id='project' th:field="${task.project}">
                                 <option th:each="project:${projectList}"
                                         th:value="${project.id}"
@@ -35,7 +35,7 @@
                         </div>
                         <br>
 
-                        <div class='form-group'><label for='typeOfStory'> Type of story</label><span
+                        <div class='form-group'><label for='typeOfStory'>Type of story</label><span
                                 class="required">*</span>
                             <select id='typeOfStory' th:field="${task.typeOfStory}">
                                 <option th:each="type:${T(com.gbarwinski.organizerspring.model.TypeOfStory).values()}"
@@ -53,14 +53,14 @@
 
                         <br>
                         <div class='form-group'>
-                            <label for='name'> Summary</label><span class="required">*</span>
+                            <label for='name'>Summary</label><span class="required">*</span>
                             <input id='name' class='form-control w-50' type='text' th:field="${task.name}">
                             <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Correct the summary name
                             </div>
 
                         </div>
 
-                        <div class='form-group'><label for='description'> Description</label>
+                        <div class='form-group'><label for='description'>Description</label>
                             <textarea id='description' class='form-control' type='text'
                                       th:field="${task.description}" rows="5"></textarea>
                             <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class='form-group'>
-                            <label for='Priority'> Priority</label><span class="required">*</span>
+                            <label for='Priority'>Priority</label><span class="required">*</span>
                             <select id='Priority' th:field="${task.priority}">
                                 <option th:each="priority:${T(com.gbarwinski.organizerspring.model.Priority).values()}"
                                         th:value="${priority}"
@@ -85,7 +85,7 @@
                         <div class='form-group'>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-3">
-                                    <label for='AttachedUser'> Assigned User: </label>
+                                    <label for='AttachedUser'>Assigned User:</label>
                                 </div>
 
                                 <div class="col-lg-2 col-md-2  col-sm-2 col-3">
@@ -95,7 +95,7 @@
 
 
                                 <div class="offset-lg-2 offset-md-2 offset-sm-2  col-lg-2 col-md-2  col-sm-2   col-3 px-1">
-                                    <label for='user'> Add new user to task:</label>
+                                    <label for='user'>Add new user to task:</label>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3  col-sm-3  col-3 ">

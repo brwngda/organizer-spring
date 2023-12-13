@@ -22,21 +22,21 @@
                         <div class='form-group'>
                             <div class="row">
                                 <div class="col-4">
-                                    <label for='name'> Project name</label><span class="required">*</span>
+                                    <label for='name'>Project name</label><span class="required">*</span>
                                 </div>
                                 <div class="offset-1 col-7">
                                     <input type="text" id="name" name="name" th:field="*{name}">
-                                    <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Add project name </div>
+                                    <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Add project name</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <label for='description'> Project description</label>
+                                    <label for='description'>Project description</label>
                                 </div>
                                 <div class="offset-1 col-7">
                                     <input type="text" id="description" name="description"
                                               th:field="*{description}">
-                                    <div th:if="${#fields.hasErrors('description')}" class="errorRED" th:errors="*{description}">Add description </div>
+                                    <div th:if="${#fields.hasErrors('description')}" class="errorRED" th:errors="*{description}">Add description</div>
 
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <button class="btn btn-secondary dropdown-toggle " type="button"
                                         id="dropdownMenuButton2"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Choose the avatar
+                                    Choose avatar
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <div class="avatar_box" role="group">
