@@ -75,7 +75,7 @@ public class ProjectController {
         if (appUser != null) {
             model.addAttribute(AVATAR_LIST, UtilityClass.getListOfIconTitles());
             model.addAttribute(ALL_ADMINS_INITIALS_LIST, projectService.getProjectAdminNameAndSurname());
-            model.addAttribute(LOGS_ABOUT_PROJECTS, messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
+            model.addAttribute(LOGS_ABOUT_PROJECTS, messageService.getLastFiveMessagesForActiveUser(appUser.getUserId()));
         }
     }
 }

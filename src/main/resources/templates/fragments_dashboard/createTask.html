@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layoutDashboard.html}">
 <head>
-    <title>New Task - Organizer</title>
+    <title>Organizer - new task</title>
 </head>
 
 <th:block layout:fragment="content">
@@ -12,17 +12,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new task</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create a new task</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-                <div>
-                    <p th:text="${requestId}"></p>
-                </div>
-
-                <form th:action="@{/createTask/(id=${user.id})}">
+                <form th:action="@{${requestURI}(id=${newTask.project.id})}"
                       th:object="${newTask}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
@@ -35,19 +30,24 @@
 
                                 ></option>
                             </select>
-                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Choose the project</div>
+                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Choose
+                                project
+                            </div>
 
                         </div>
                         <br>
 
-                        <div class='form-group'><label for='typeOfStory'>Type of story</label><span class="required">*</span>
+                        <div class='form-group'><label for='typeOfStory'>Type of story</label><span
+                                class="required">*</span>
                             <select id='typeOfStory' th:field="${newTask.typeOfStory}">
                                 <option th:each="type:${T(com.gbarwinski.organizerspring.model.TypeOfStory).values()}"
                                         th:value="${type}"
                                         th:text="${type}">
                                 </option>
                             </select>
-                            <div th:if="${#fields.hasErrors('typeOfStory')}" class="errorRED" th:errors="*{typeOfStory}">Choose type of story</div>
+                            <div th:if="${#fields.hasErrors('typeOfStory')}" class="errorRED"
+                                 th:errors="*{typeOfStory}">Choose type of story
+                            </div>
 
                         </div>
 
@@ -59,14 +59,16 @@
                         <div class='form-group'>
                             <label for='name'>Summary</label><span class="required">*</span>
                             <input id='name' class='form-control' type='text' th:field="${newTask.name}">
-                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Correct the summary name</div>
+                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Summary is
+                                incorrect
+                            </div>
 
                         </div>
-                        <div class='form-group'><label for='description'> Description</label>
+                        <div class='form-group'><label for='description'>Description</label>
                             <textarea id='description' class='form-control' type='text'
                                       th:field="${newTask.description}" rows="5"></textarea>
                             <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-                                 class="errorRED">Correct the description name
+                                 class="errorRED">Description is incorrect
                             </div>
 
                         </div>
@@ -79,7 +81,7 @@
                                         th:text="${priority}"
                                 ></option>
                             </select>
-                            <div th:if="${#fields.hasErrors('Priority')}" th:errors="*{priority}">Choose the priority</div>
+                            <div th:if="${#fields.hasErrors('Priority')}" th:errors="*{priority}">Choose priority</div>
                         </div>
 
                         <div class="modal-footer">

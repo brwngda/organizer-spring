@@ -34,10 +34,6 @@ public class ProjectService {
         return filterProjectsForUser(activeUser);
     }
 
-    public List<Project>    getAllProjects() {
-        return projectRepository.findAll();
-    }
-
     public ProjectDTO findProjectAndTransferToDTO(Long id) {
         Project project = findProjectById(id);
         return transformProjectToProjectDTO(project);
@@ -70,15 +66,13 @@ public class ProjectService {
 
     public Project addInitialProject(User user) {
         List<User> userList = new ArrayList<>();
-        User initialUser = User.builder()
-                .email(user.getEmail())
-                .build();
-        userList.add(initialUser);
+        userList.add(user);
         Project initialProject = Project.builder()
                 .name("Name of your project")
                 .description("Description of your project")
                 .avatar("icons/015.png")
                 .users(userList)
+                .admin(user.getEmail())
                 .isStarred(false)
                 .build();
         projectRepository.save(initialProject);
@@ -94,13 +88,13 @@ public class ProjectService {
         List<Project> allProjects = projectRepository.findAll();
         return allProjects.stream()
                 .filter(project -> project.getUsers().stream().
-                        anyMatch(user -> user.getIdUser().equals(activeUser.getIdUser())))
+                        anyMatch(user -> user.getUserId().equals(activeUser.getUserId())))
                 .collect(Collectors.toList());
     }
 
-    public void addUserToProject(Long idProject, Long idUser) {
+    public void addUserToProject(Long idProject, Long userId) {
         Optional<Project> ProjectById = projectRepository.findById(idProject);
-        User userByEmail = userService.findUserById(idUser);
+        User userByEmail = userService.findUserById(userId);
         if (ProjectById.isPresent()) {
             Project project = ProjectById.get();
             List<User> users = project.getUsers();

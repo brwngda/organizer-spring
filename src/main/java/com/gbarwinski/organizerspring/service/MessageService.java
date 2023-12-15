@@ -77,7 +77,7 @@ public class MessageService {
         Long taskId = messageDTO.getTaskId();
         Long projectId = taskService.getProjectIdFromTask(taskId);
         return projectService.findProjectById(projectId).getUsers().stream()
-                .map(User::getIdUser)
+                .map(User::getUserId)
                 .collect(Collectors.toSet());
     }
 }

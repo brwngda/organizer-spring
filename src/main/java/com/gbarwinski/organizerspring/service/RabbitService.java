@@ -1,9 +1,7 @@
 package com.gbarwinski.organizerspring.service;
 
-import com.gbarwinski.organizerspring.model.User;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +9,6 @@ import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.ChannelCallback;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static com.gbarwinski.organizerspring.config.RabbitMqConfig.getDirectExchange;
 
@@ -25,13 +21,6 @@ public class RabbitService {
     private final RabbitTemplate rabbitTemplate;
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitService.class);
     private final DirectExchange newDirectExchange;
-    private final UserService userService;
-
-//    @PostConstruct
-//    public void createQueuesForAllUsers() {
-//        List<User> allUsers = userService.getAllUsers();
-//        allUsers.forEach(user -> createQueue(user.getIdUser().toString()));
-//    }
 
     public void createQueue(String userId) {
         String exchange = "organizer";

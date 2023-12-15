@@ -15,7 +15,7 @@ submitUser.addEventListener("click", (event) => {
             for (let i = 0; i < users.length; i++) {
 
                 if (selectedUser === users[i].email) {
-                    userId = users[i].idUser;
+                    userId = users[i].userId;
                     break;
                 }
             }

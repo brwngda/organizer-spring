@@ -2,12 +2,11 @@ package com.gbarwinski.organizerspring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+
 @Entity
 @Builder
 @AllArgsConstructor
@@ -24,7 +23,7 @@ public class Task {
     @JsonIgnore
     private Sprint sprint;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne()
     @JsonIgnore
     private Project project;
 
@@ -39,4 +38,13 @@ public class Task {
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private User user;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "idTask=" + idTask +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

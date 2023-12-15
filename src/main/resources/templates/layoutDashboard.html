@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div id="userId" th:name="${actualUser.idUser}"></div>
+    <div id="userId" th:name="${actualUser.userId}"></div>
     <div id="navbar">
         <div th:replace="~{fragment_navbar/navbar :: navbar(${actualUser.email},${logsAboutProjects})}">...</div>
     </div>

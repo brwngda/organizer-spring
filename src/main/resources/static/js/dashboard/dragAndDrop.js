@@ -17,7 +17,7 @@ function drag(ev) {
     });
 }
 
-let idUserFromNavbar = $('#userId').attr('name');
+let userIdFromNavbar = $('#userId').attr('name');
 
 function drop(ev) {
     ev.preventDefault();
@@ -33,10 +33,10 @@ function drop(ev) {
         $.get({
             url: "/task/" + el_id + "/" + newContainerName,
             success: function (data) {
-                let path = "/sendtaskInformation/" + idUserFromNavbar + "?taskId=" + el_id + "&" + "update=UPDATE_PROGRESS";
+                let path = "/sendtaskInformation/" + userIdFromNavbar + "?taskId=" + el_id + "&" + "update=UPDATE_PROGRESS";
                 $.get(path, {}, JSON.stringify({
                     "taskId": el_id,
-                    "userId": idUserFromNavbar,
+                    "userId": userIdFromNavbar,
                 }));
             }
         });

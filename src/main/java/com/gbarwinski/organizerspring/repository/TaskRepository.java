@@ -1,6 +1,5 @@
 package com.gbarwinski.organizerspring.repository;
 
-import com.gbarwinski.organizerspring.model.Sprint;
 import com.gbarwinski.organizerspring.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,6 +11,4 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Optional<List<Task>> findAllByProjectId(Long id);
-
-    List<Task> findAllBySprint(Sprint sprint);
 }

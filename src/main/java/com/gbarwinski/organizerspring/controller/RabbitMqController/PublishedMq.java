@@ -4,9 +4,9 @@ import com.gbarwinski.organizerspring.DTO.MessageDTO;
 import com.gbarwinski.organizerspring.model.Message;
 import com.gbarwinski.organizerspring.service.MessageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +16,7 @@ import java.util.Properties;
 import java.util.Set;
 
 @RestController
+@Slf4j
 @RequiredArgsConstructor
 public class PublishedMq {
 
@@ -39,7 +40,13 @@ public class PublishedMq {
     @GetMapping("/newInformationCounter/{userId}")
     public Integer getNewInformationCounter(@PathVariable(value = "userId") String userId) {
         String queueName = "taskInformation." + userId;
-        Properties props = amqpAdmin.getQueueProperties(queueName);
-        return Integer.parseInt(props.get("QUEUE_MESSAGE_COUNT").toString());
+        try {
+            Properties props = amqpAdmin.getQueueProperties(queueName);
+            assert props != null;
+            return Integer.parseInt(props.get("QUEUE_MESSAGE_COUNT").toString());
+        } catch (Exception e) {
+            log.error("No rabbitmq connection", e);
+        }
+        return 1;
     }
 }

@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layoutProjects.html}">
 <head>
-    <title>Project Edit - Organizer</title>
+    <title>Organizer - Project</title>
 </head>
 <th:block layout:fragment="editProject">
     <div class="modal fade" id="myEditProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3"
@@ -16,7 +16,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form th:action="@{${#request.getRequestURI()}(id=${#request.getParameter('id')})}"
+                <form th:action="@{${requestURI}(id=${oldProject.id})}"
                       th:object="${oldProject}" method="post">
                     <div class="modal-body">
 
@@ -24,7 +24,9 @@
                             <label for='name'>Project name</label><span class="required">*</span>
                             <input id="name" name="name" class='form-control' type='text'
                                    th:field="${oldProject.name}">
-                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Add project name</div>
+                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Add project
+                                name
+                            </div>
 
                         </div>
 
@@ -34,7 +36,9 @@
                             <label for='description'>Description</label>
                             <input id="description" name="oldProject.description" class='form-control'
                                    type='text' th:field="${oldProject.description}">
-                            <div th:if="${#fields.hasErrors('description')}" class="errorRED" th:errors="*{description}">Add description</div>
+                            <div th:if="${#fields.hasErrors('description')}" class="errorRED"
+                                 th:errors="*{description}">Add description
+                            </div>
 
                         </div>
                         <label> Avatar</label> <span class="required">*</span>
@@ -64,20 +68,24 @@
 
                         <input type="text" id="avatar" th:name="avatar" th:field="*{avatar}"
                                style="display: none">
-                        <div th:if="${#fields.hasErrors('avatar')}" class="errorRED" th:errors="*{avatar}"> </div>
+                        <div th:if="${#fields.hasErrors('avatar')}" class="errorRED" th:errors="*{avatar}"></div>
 
                         <br>
 
                         <div class='form-group'>
                             <label for='admin'>Project manager</label><span class="required">*</span>
-                            <select id='admin' th:field="*{admin}" >
-                                <option th:each="user:${usersAssignedToProject}" th:value="${user.email} " aria-describedby="adminHelp"
+                            <select id='admin' th:field="*{admin}">
+                                <option th:each="user:${usersAssignedToProject}" th:value="${user.email} "
+                                        aria-describedby="adminHelp"
                                         th:text="${user.name + ' '+ user.surname}"
                                         th:selected="${user.email==oldProject.admin}"></option>
                             </select>
-                            <small id="adminHelp" class="form-text text-muted">Changing the project manager will result in the inability to edit.</small>
+                            <small id="adminHelp" class="form-text text-muted">Changing the project manager will result
+                                in the inability to edit.</small>
 
-                            <div th:if="${#fields.hasErrors('admin')}" class="errorRED" th:errors="*{admin}">Add project name</div>
+                            <div th:if="${#fields.hasErrors('admin')}" class="errorRED" th:errors="*{admin}">Add project
+                                name
+                            </div>
 
                         </div>
 

@@ -57,9 +57,12 @@ public class Registration {
         }
         model.addAttribute(REGISTRATION_SUCCESS, true);
         assert registered != null;
-        String userId = registered.getIdUser().toString();
-        rabbitService.createQueue(userId);
-
+        String userId = registered.getUserId().toString();
+        try {
+            rabbitService.createQueue(userId);
+        }catch (Exception e){
+            log.error("Cannot create rabbitmq queue.", e);
+        }
         return "login/loginPage";
     }
 

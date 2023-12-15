@@ -43,7 +43,7 @@ public class UserService {
         List<User> all = getAllUsers();
         Long activeUserId = getActiveUserId();
         return all.stream()
-                .filter(user -> !user.getIdUser().equals(activeUserId))
+                .filter(user -> !user.getUserId().equals(activeUserId))
                 .collect(Collectors.toList());
     }
 
@@ -72,7 +72,7 @@ public class UserService {
 
     private Long getActiveUserId() {
 
-        return UtilityClass.getLoggedInUser().getIdUser();
+        return UtilityClass.getLoggedInUser().getUserId();
     }
 
     public String getInitialLetters(User user) {

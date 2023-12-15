@@ -15,11 +15,9 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class RabbitMqConfig {
 
+    @Getter
     private static final DirectExchange directExchange = new DirectExchange("organizer");
 
-    public static DirectExchange getDirectExchange() {
-        return directExchange;
-    }
     @Bean
     public DirectExchange newDirectExchange() {
         return new DirectExchange("organizer");

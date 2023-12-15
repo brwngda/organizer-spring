@@ -11,10 +11,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.List;
 
 import static com.gbarwinski.organizerspring.utility.Attributes.*;
 
@@ -65,7 +66,7 @@ public class DashboardController {
             model.addAttribute(SPRINT, new Sprint());
             model.addAttribute(TASK_LIST, taskService.getTasksByProject(actualProject));
             model.addAttribute(USER_LIST, userService.getAllUsersApartActiveUser());
-            model.addAttribute(LOGS_ABOUT_PROJECTS, messageService.getLastFiveMessagesForActiveUser(appUser.getIdUser()));
+            model.addAttribute(LOGS_ABOUT_PROJECTS, messageService.getLastFiveMessagesForActiveUser(appUser.getUserId()));
         }
     }
 
@@ -74,8 +75,4 @@ public class DashboardController {
         return request.getRequestURI();
     }
 
-    @ModelAttribute("requestId")
-    public String requestId(final HttpServletRequest request) {
-        return request.getRequestId();
-    }
 }

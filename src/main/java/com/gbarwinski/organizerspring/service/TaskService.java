@@ -19,7 +19,6 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final ProjectService projectService;
     private final ProgressService progressService;
-    private final SprintService sprintService;
 
     public void saveTask(Task task) {
         taskRepository.save(task);
@@ -86,15 +85,15 @@ public class TaskService {
     public List<Task> getTasksByProject(Project project) {
         if (project != null) {
             Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(project.getId());
-            return AllTasksByProjectName.orElse(new ArrayList<Task>());
+            return AllTasksByProjectName.orElse(new ArrayList<>());
         } else {
-            return new ArrayList<Task>();
+            return new ArrayList<>();
         }
     }
 
     public List<Task> getTasksByProject(Long id) {
         Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(id);
-        return AllTasksByProjectName.orElse(new ArrayList<Task>());
+        return AllTasksByProjectName.orElse(new ArrayList<>());
 
     }
 
@@ -111,10 +110,6 @@ public class TaskService {
     public Long getProjectIdFromTask(Long id) {
         Task task = findTask(id);
         return task.getProject().getId();
-    }
-
-    public List<Task> getTasksBySprintId(Long id) {
-        return taskRepository.findAllBySprint(sprintService.findById(id));
     }
 
     public void deleteTask(Long id) {

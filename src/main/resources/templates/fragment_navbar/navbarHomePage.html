@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <head>
-    <title>DashBoard</title>
+    <title>Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -17,18 +17,18 @@
         <a class="navbar-brand mx-0 permamentButtons">
             <img src="/img/scheduleIcon3.png" class="imgIcon" width="30" height="30" alt="">
         </a>
-        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">ORGANIZER</a>
+        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">Organizer</a>
         <div th:switch="${actualUserEmail}">
             <a th:case="null"></a>
             <a th:case="*" class="nav-item nav-link disabled mr-sm-2 text-secondary " id="navbarActiveUserEmail"
                th:text="${actualUserEmail}"></a>
         </div>
         <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
-               <div th:switch="${actualUserEmail}">
+            <div th:switch="${actualUserEmail}">
                 <a th:case="null"></a>
                 <div th:case="*">
                     <li class="nav-item item">
-                        <a class="nav-item nav-link active " href="/projects">MY PROJECTS</a>
+                        <a class="nav-item nav-link active " href="/projects">My Projects</a>
                     </li>
                 </div>
             </div>

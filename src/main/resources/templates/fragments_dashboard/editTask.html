@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layoutDashboard.html}">
 <head>
-    <title>Edit task - Organizer</title>
+    <title>Organizer - Task</title>
 </head>
 
 <th:block layout:fragment="content">
@@ -17,7 +17,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form th:action="@{${#request.getRequestURI()}(id=${#request.getParameter('id')})}"
+                <form th:action="@{${requestURI}(id=${task.idTask})}"
                       th:object="${task}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
@@ -29,7 +29,8 @@
                                         th:selected="${project.id==task.project.id}">
                                 </option>
                             </select>
-                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Choose the project
+                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Choose
+                                the project
                             </div>
 
                         </div>
@@ -55,7 +56,8 @@
                         <div class='form-group'>
                             <label for='name'>Summary</label><span class="required">*</span>
                             <input id='name' class='form-control w-50' type='text' th:field="${task.name}">
-                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Correct the summary name
+                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Correct the
+                                summary name
                             </div>
 
                         </div>
@@ -100,10 +102,10 @@
 
                                 <div class="col-lg-3 col-md-3  col-sm-3  col-3 ">
 
-                                    <select id='user'  th:field="${task.user}">
+                                    <select id='user' th:field="${task.user}">
                                         <option th:value="null"></option>
                                         <option th:each="user:${usersAssignedToProject}"
-                                                th:value="${user.idUser}"
+                                                th:value="${user.getUserId}"
                                                 th:text="${user.name+' '+user.surname}"
                                                 th:selected="${user==task.user}"
                                         ></option>
@@ -120,16 +122,16 @@
                         <a type="button" th:href="@{/deletetask(id=${task.idTask})}"
                            class="btn btn-warning">Delete</a>
                         <button type="submit" class="btn btn-primary edittaskbtn"
-                                th:id="'edittaskbtn_'+${task.idTask}+'_'+${actualUser.idUser}">Save
+                                th:id="'edittaskbtn_'+${task.idTask}+'_'+${actualUser.userId}">Save
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                     </div>
 
 
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 </th:block>
 

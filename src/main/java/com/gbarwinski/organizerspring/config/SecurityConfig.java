@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -28,12 +27,6 @@ public class SecurityConfig {
 
     private final LoggingUserService loggingUserService;
     private final EncoderConfig encoderConfig;
-
-    // todo: do usunięcia?
-//    @Bean
-//    public WebSecurityCustomizer ignoringCustomizer() {
-//        return (web) -> web.ignoring().requestMatchers("/resources/**", "/webjars/**", "/img/**");
-//    }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(encoderConfig.authProvider());

@@ -8,12 +8,12 @@ function sentText() {
     console.log(editButtonId)
     if (strings.length > 0) {
         taskId = strings[1];
-        let idUser = strings[2];
-        let path = "/sendtaskInformation/" + idUser+"?taskId="+taskId+"&"+"update=UPDATE";
+        let userId = strings[2];
+        let path = "/sendtaskInformation/" + userId+"?taskId="+taskId+"&"+"update=UPDATE";
         console.log(path)
         $.get(path, {}, JSON.stringify({
             "taskId": taskId,
-            "userId": idUser,
+            "userId": userId,
         }));
 
     }

@@ -1,5 +1,5 @@
 let buttonWithNotifations = document.getElementById("buttonWithNotifations");
-let idUser = $('#userId').attr('name');
+let userId = $('#userId').attr('name');
 let value;
 
 window.onload = function () {
@@ -8,7 +8,7 @@ window.onload = function () {
 
 function checkNumberOfInformation() {
     let badgeInfo = document.getElementById("badgeInfo");
-    $.get("/newInformationCounter/" + idUser,
+    $.get("/newInformationCounter/" + userId,
         function onsuccess(NumberOfInformation) {
             badgeInfo.innerText = NumberOfInformation;
             value = NumberOfInformation;
@@ -22,11 +22,11 @@ buttonWithNotifations.addEventListener("click", () => {
     else
         length = value;
 
-    let idUser = $('#userId').attr('name');
+    let userId = $('#userId').attr('name');
 
     for (let i = 0; i < length; i++) {
 
-        $.get("/receivetaskInformation/" + idUser,
+        $.get("/receivetaskInformation/" + userId,
             function onsuccess(MessageString) {
                 if (MessageString !== "Nie ma nowych wiadomości") {
                     let newMessagesList = document.getElementById('newMessages');
