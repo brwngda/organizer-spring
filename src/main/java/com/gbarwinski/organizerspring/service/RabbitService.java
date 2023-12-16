@@ -14,7 +14,6 @@ import static com.gbarwinski.organizerspring.config.RabbitMqConfig.getDirectExch
 
 @Service
 @RequiredArgsConstructor
-
 public class RabbitService {
 
     private final AmqpAdmin amqpAdmin;

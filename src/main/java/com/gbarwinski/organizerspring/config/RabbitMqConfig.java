@@ -1,6 +1,5 @@
 package com.gbarwinski.organizerspring.config;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.DirectExchange;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class RabbitMqConfig {
-
 
     private static final DirectExchange directExchange = new DirectExchange("organizer");
 

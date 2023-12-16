@@ -19,11 +19,15 @@ public class Sprint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sprintId;
+
     private String name;
+
     @Temporal(value = TemporalType.DATE)
     private Date start;
+
     @Temporal(value = TemporalType.DATE)
     private Date end;
+
     private Long storyPointsGranted;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sprint")
