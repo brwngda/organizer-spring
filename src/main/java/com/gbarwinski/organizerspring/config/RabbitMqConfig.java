@@ -14,15 +14,11 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class RabbitMqConfig {
 
-    private static final DirectExchange directExchange = new DirectExchange("organizer");
-
-    public static DirectExchange getDirectExchange() {
-        return directExchange;
-    }
+    private static final String EXCHANGE_NAME = "organizer";
 
     @Bean
-    public DirectExchange newDirectExchange() {
-        return new DirectExchange("organizer");
+    public DirectExchange directExchange() {
+        return new DirectExchange(EXCHANGE_NAME);
     }
 
     @Bean

@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,23 +25,18 @@ import static com.gbarwinski.organizerspring.utility.UrlPaths.*;
 public class SecurityConfig {
 
     private final LoggingUserService loggingUserService;
-    private final EncoderConfig encoderConfig;
-
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(encoderConfig.authProvider());
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/resources/**", "/webjars/**", "/img/**", "/", CSS_ALLOW_ALL, JS_ALLOW_ALL, REGISTER, LOGIN_ALLOW_ALL, LOGIN_ERROR, LOGOUT, HOME, TASK_INFORMATION).permitAll()
+                        auth -> auth.requestMatchers("/resources/**", "/webjars/**", "/img/**", "/", CSS_ALLOW_ALL, JS_ALLOW_ALL, REGISTER, LOGIN_ALLOW_ALL, LOGIN_ERROR_URL, LOGOUT, HOME, TASK_INFORMATION).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(login -> login.loginPage(LOGIN)
                         .loginProcessingUrl(LOGIN)
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl(PROJECTS, true)
-                        .failureUrl(LOGIN_ERROR)
+                        .failureUrl(LOGIN_ERROR_URL)
                         .successHandler(successHandler())
                         .permitAll())
                 .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT))
@@ -50,7 +44,6 @@ public class SecurityConfig {
                         .logoutSuccessUrl(LOGOUT_SUCCESS)
                         .permitAll())
                 .sessionManagement(s -> s.maximumSessions(1));
-
         return http.build();
     }
 

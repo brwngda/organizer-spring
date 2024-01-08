@@ -14,11 +14,14 @@ public class ClientMq {
 
     @GetMapping("/receiveTaskInformation/{userId}")
     public String get(@PathVariable String userId) {
-        Object message = rabbitTemplate.receiveAndConvert("taskInformation." + userId);
-        if (message == null)
-            return "No new messages";
-        else {
-            return message.toString();
+        if (rabbitTemplate == null) {
+            return "Error: RabbitTemplate is not available";
+        }
+        try {
+            Object message = rabbitTemplate.receiveAndConvert("taskInformation." + userId);
+            return (message == null) ? "No new messages" : message.toString();
+        } catch (Exception e) {
+            return "Error while processing the request: " + e.getMessage();
         }
     }
 }

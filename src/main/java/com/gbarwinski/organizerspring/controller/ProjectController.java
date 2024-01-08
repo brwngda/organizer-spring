@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,7 @@ import java.io.IOException;
 
 import static com.gbarwinski.organizerspring.utility.Attributes.*;
 
-@Slf4j
+
 @ControllerAdvice
 @RequiredArgsConstructor
 @Controller

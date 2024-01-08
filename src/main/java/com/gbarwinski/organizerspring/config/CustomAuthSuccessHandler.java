@@ -24,31 +24,29 @@ import java.util.Collection;
 public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private final LoggingUserService loggingUserService;
-
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        handle(request, response, authentication);
+        handleSuccess(request, response, authentication);
         clearAuthenticationAttributes(request);
     }
 
-    protected void handle(HttpServletRequest request,
-                          HttpServletResponse response, Authentication authentication)
+    protected void handleSuccess(HttpServletRequest request,
+                                 HttpServletResponse response, Authentication authentication)
             throws IOException {
         String targetUrl = determineTargetUrl(request, authentication);
 
         if (response.isCommitted()) {
-            CustomAuthSuccessHandler.log.debug("Response has been already committed. Unable to redirect to " + targetUrl);
+            log.debug("Response has been already committed. Unable to redirect to " + targetUrl);
             return;
         }
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
-
+//todo: works but require modification!
     protected String determineTargetUrl(HttpServletRequest request, Authentication authentication) {
-
         boolean isUser = false;
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities
@@ -72,9 +70,8 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     protected void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return;
-        }
+        if (session != null) {
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
+        }
 }

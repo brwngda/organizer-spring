@@ -44,13 +44,13 @@ public class TaskController {
         return "redirect:/dashboard?id=" + projectId;
     }
 
-    @PostMapping("/addcard")
+    @PostMapping("/addCard")
     public String postCard(@ModelAttribute Task task) {
         taskService.saveTask(task);
         return "redirect:/dashboard";
     }
 
-    @GetMapping("/edittask")
+    @GetMapping("/editTask")
     public String editCard(@RequestParam("id") Long id, Model model) {
         TaskDTO taskDTO = taskService.getTaskDtoFromTask(id);
         model.addAttribute("task", taskDTO);
@@ -60,7 +60,7 @@ public class TaskController {
         return "fragments_dashboard/editTask";
     }
 
-    @PostMapping("/edittask")
+    @PostMapping("/editTask")
     public String editCard(@ModelAttribute("task") TaskDTO taskDTO, @RequestParam("id") Long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "fragments_dashboard/editTask";
@@ -69,7 +69,7 @@ public class TaskController {
         return "redirect:/dashboard?id=" + taskDTO.getProject().getId();
     }
 
-    @GetMapping("/deletetask")
+    @GetMapping("/deleteTask")
     public String deleteCard(@RequestParam("id") Long id) {
         Long projectId = taskService.getProjectIdFromTask(id);
         taskService.deleteTask(id);

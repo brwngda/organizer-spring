@@ -34,7 +34,7 @@ public class PublishedMq {
                 .build();
         Message messageReadyToSend = messageService.saveAndGetReadyMessage(messageDTO, update);
         Set<Long> assignedUsersIdToProject = messageService.getAssignedUsersToProject(messageDTO);
-        assignedUsersIdToProject.forEach(Id -> rabbitTemplate.convertAndSend("taskInformation." + Id, messageReadyToSend.getMessage()));
+        assignedUsersIdToProject.forEach(id -> rabbitTemplate.convertAndSend("taskInformation." + id, messageReadyToSend.getMessage()));
     }
 
     @GetMapping("/newInformationCounter/{userId}")

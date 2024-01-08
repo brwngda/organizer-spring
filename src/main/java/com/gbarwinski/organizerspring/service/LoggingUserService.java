@@ -44,7 +44,7 @@ public class LoggingUserService implements IUserService {
         newUser.setRole(userDTO.getRoles());
         newUser.setNick(userDTO.getNick());
         userRepository.save(newUser);
-        log.info("User " + newUser.getEmail() + " added.");
+        log.info("User '{}' added", newUser.getEmail());
         addInitialProjectAndTask(newUser);
         return newUser;
     }

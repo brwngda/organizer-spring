@@ -74,5 +74,4 @@ public class DashboardController {
     public String requestURI(final HttpServletRequest request) {
         return request.getRequestURI();
     }
-
 }

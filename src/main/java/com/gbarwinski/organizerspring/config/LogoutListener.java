@@ -19,5 +19,4 @@ public class LogoutListener implements ApplicationListener<SessionDestroyedEvent
             ud = (UserDetails) securityContext.getAuthentication().getPrincipal();
         }
     }
-
 }

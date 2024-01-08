@@ -15,8 +15,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static com.gbarwinski.organizerspring.utility.Attributes.NEW_USER;
 import static com.gbarwinski.organizerspring.utility.Attributes.REGISTRATION_SUCCESS;
@@ -24,23 +26,28 @@ import static com.gbarwinski.organizerspring.utility.Attributes.REGISTRATION_SUC
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class Registration {
+@RequestMapping("/register")
+public class RegistrationController {
+
     private final UserService userService;
     private final LoggingUserService loggingUserService;
     private final RabbitService rabbitService;
 
-    @GetMapping("/register")
+    @GetMapping
     public String register(Model model) {
-        UserDTO userDTO = new UserDTO();
-        model.addAttribute(NEW_USER, userDTO);
+        model.addAttribute(NEW_USER, new UserDTO());
         return "login/registrationPage";
     }
 
-    @PostMapping("/register")
-    public String addUser(@ModelAttribute("newUser") @Valid UserDTO userDTO, BindingResult result, Errors errors, Model model) {
-        User registered = new User();
+    @PostMapping
+    public String addUser(
+            @ModelAttribute("newUser") @Valid UserDTO userDTO,
+            BindingResult result,
+            Errors errors,
+            Model model
+    ) {
         if (result.hasErrors()) {
-            log.error(result.getAllErrors().toString());
+            log.error("Validation errors: {}", result.getAllErrors());
             result.rejectValue("matchingPassword", "error.newUser", "Passwords don't match");
             return "login/registrationPage";
         }
@@ -49,31 +56,29 @@ public class Registration {
             return "login/registrationPage";
         }
 
-        if (!result.hasErrors()) {
-            registered = createUserAccount(userDTO);
-        }
-        if (registered == null) {
+        Optional<User> registeredUser = createUserAccount(userDTO);
+        if (registeredUser.isEmpty()) {
             result.rejectValue("email", "message.regError");
+            return "login/registrationPage";
         }
+
         model.addAttribute(REGISTRATION_SUCCESS, true);
-        assert registered != null;
-        String userId = registered.getUserId().toString();
-        try {
-            rabbitService.createQueue(userId);
-        }catch (Exception e){
-            log.error("Cannot create rabbitmq queue.", e);
-        }
+        registeredUser.ifPresent(user -> {
+            try {
+                rabbitService.createQueue(user.getUserId().toString());
+            } catch (Exception e) {
+                log.error("Cannot create rabbitmq queue.", e);
+            }
+        });
         return "login/loginPage";
     }
 
-    private User createUserAccount(UserDTO userDTO) {
-        User registered;
+    private Optional<User> createUserAccount(UserDTO userDTO) {
         try {
-            registered = loggingUserService.registerNewUserAccount(userDTO);
+            return Optional.of(loggingUserService.registerNewUserAccount(userDTO));
         } catch (IOException e) {
-            log.error(e.getMessage());
-            return null;
+            log.error("Error while registering user account: {}", e.getMessage());
+            return Optional.empty();
         }
-        return registered;
     }
 }

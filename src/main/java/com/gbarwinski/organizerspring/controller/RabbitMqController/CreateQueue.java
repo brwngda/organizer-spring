@@ -14,7 +14,14 @@ public class CreateQueue {
 
     @GetMapping("/createQueue")
     public String create(@RequestParam(value = "userId") String userId) {
-        rabbitService.createQueue(userId);
-        return "Queue created" + userId;
+        if (rabbitService == null) {
+            return "Error: RabbitService is not available";
+        }
+        try {
+            rabbitService.createQueue(userId);
+            return "Queue created " + userId;
+        } catch (Exception e) {
+            return "Error while creating queue for user " + userId + ": " + e.getMessage();
+        }
     }
 }

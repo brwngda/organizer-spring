@@ -38,9 +38,7 @@ public class UtilityClass {
 
     public static List<String> getListOfIconTitles() throws IOException {
         List<String> result = new ArrayList<>();
-
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-
         Resource[] resources = resolver.getResources("classpath*:/**/icons/**/*.png");
         for (Resource resource : resources) {
             result.add(resource.getFilename());
